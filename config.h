@@ -38,6 +38,7 @@ static char *colors[][3]		= {
 	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
+
 /* initial layouts per tag ( Index of layouts[]  */
 static const int initlayouts[] = { 0, 6, 3, 0, 5, 4, 2 ,2, 2 };
 
@@ -50,16 +51,17 @@ static const Layout layouts[] = {
 	{ "[D]",		deck},						/* 8. Master on left, slaves in monocle-like mode on right */
 
 	{ "[M]",		monocle },                  /* 2. All windows on top of eachother ( Full window ) */
-	{ "|M|",		centeredmaster },			/* 3. Master in middle, slaves on sides */
-	{ ">M>",		centeredfloatingmaster },	/* 4. Same but master floats */
+	// { "|M|",		centeredmaster },			/* 3. Master in middle, slaves on sides */
+	// { ">M>",		centeredfloatingmaster },	/* 4. Same but master floats */
 
-	{ "HHH",		grid },						/* 5. Grid layout */
-	{ "TTT",		bstack},					/* 6. Master on top, slaves on bottom */
-	{ "===",		bstackhoriz},				/* 7. Bstack horiz layout */
+	// { "HHH",		grid },						/* 5. Grid layout */
+	// { "TTT",		bstack},					/* 6. Master on top, slaves on bottom */
+	// { "===",		bstackhoriz},				/* 7. Bstack horiz layout */
 
 	{ "><>",		NULL },						/* 1. no layout function means floating behavior */
 	{ NULL,			NULL },						/* ~ Failback */
 };
+
 
 static const Rule rules[] = {
 	/* poxrop(1):
@@ -107,187 +109,70 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static float mfact				= 0.55; /* factor of master area size [0.05..0.95] */
-static int nmaster				= 1;    /* number of clients in master area */
-static int resizehints			= 0;    /* 1 means respect size hints in tiled resizals */
-static const int lockfullscreen = 1;	/* 1 will force focus on the fullscreen window */
-
-/* Mask        | Value | Key */
-/* ------------+-------+------------ */
-/* ShiftMask   |     1 | Shift */
-/* LockMask    |     2 | Caps Lock */
-/* ControlMask |     4 | Ctrl */
-/* Mod1Mask    |     8 | Alt */
-/* Mod2Mask    |    16 | Num Lock */
-/* Mod3Mask    |    32 | Scroll Lock */
-/* Mod4Mask    |    64 | Windows */
-/* Mod5Mask    |   128 | ??? */
+static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 1;    /* number of clients in master area */
+static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 /* key definitions */
-// #define MODKEY Mod1Mask // Alt key for meta (Default as per DWM)
-#define AltMask Mod1Mask  // Alt key for meta
-#define MODKEY Mod4Mask // Window key for meta
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
-{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
-
-// Grave button = button immediately above the TAB on most keyboards.
-#define STACKKEYS(MOD,ACTION) \
-{ MOD, XK_j,     ACTION##stack, {.i = INC(+1) } }, \
-{ MOD, XK_k,     ACTION##stack, {.i = INC(-1) } }, \
-{ MOD, XK_grave, ACTION##stack, {.i = PREVSEL } },
+	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ TERMINAL_PATH, "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+// static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { TERMINAL, NULL };
 
-// Brightness controll using (xdotool also useful)
-static const char *brightup[]       = { "brightness.sh", "up", "100", NULL };
-static const char *brightdown[]     = { "brightness.sh", "down", "100", NULL };
-
-// Volume specific settings (xdotool also useful)
-static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+1%",     NULL };
-static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-1%",     NULL };
-static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",  NULL };
-
-
-/*
- * Xresources preferences to load at startup
- */
-ResourcePref resources[] = {
-	{ "color0",		STRING,	&normbordercolor },
-	{ "color8",		STRING,	&selbordercolor },
-	{ "color0",		STRING,	&normbgcolor },
-	{ "color4",		STRING,	&normfgcolor },
-	{ "color0",		STRING,	&selfgcolor },
-	{ "color4",		STRING,	&selbgcolor },
-	{ "borderpx",		INTEGER, &borderpx },
-	{ "snap",		INTEGER, &snap },
-	{ "showbar",		INTEGER, &showbar },
-	{ "topbar",		INTEGER, &topbar },
-	{ "nmaster",		INTEGER, &nmaster },
-	{ "resizehints",	INTEGER, &resizehints },
-	{ "mfact",		FLOAT,	&mfact },
-	{ "gappih",		INTEGER, &gappih },
-	{ "gappiv",		INTEGER, &gappiv },
-	{ "gappoh",		INTEGER, &gappoh },
-	{ "gappov",		INTEGER, &gappov },
-	{ "swallowfloating",	INTEGER, &swallowfloating },
-	{ "smartgaps",		INTEGER, &smartgaps },
-};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-
-	/* Vallabh @START */
-
-	{ MODKEY|Mod1Mask,              XK_s,		spawn,			SHCMD("screenkey &") },
-	{ MODKEY|Mod1Mask|ShiftMask,	XK_s,		spawn,			SHCMD("pkill -9 screenkey") },
-	{ MODKEY,						XK_x,		spawn,			SHCMD("xkill") },
-
-	{ 0,		XF86XK_MonBrightnessUp,			spawn,			{.v = brightup } },
-	{ 0,		XF86XK_MonBrightnessDown,		spawn,			{.v = brightdown } },
-	{ 0,		XF86XK_AudioLowerVolume,		spawn,			{.v = downvol } },
-	{ 0,		XF86XK_AudioMute,				spawn,			{.v = mutevol } },
-	{ 0,		XF86XK_AudioRaiseVolume,		spawn,			{.v = upvol   } },
-
-	/* start editor*/
-	{ MODKEY|ControlMask,           XK_Return, spawn,          SHCMD(TERMINAL " -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME") },
-
-	/* Vallabh @END */
-
-	// Default bindings @START
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	STACKKEYS(MODKEY,                          focus)
-	STACKKEYS(MODKEY|ShiftMask,                push)
-	// Default bindings @END
-
-	// Patch - 1 vanitygaps
-	// { MODKEY|ShiftMask,                         XK_j,		incrgaps,       {.i = +3 } },
-	// { MODKEY|ShiftMask,                         XK_k,		incrgaps,       {.i = -3 } },
-	// { Mod4Mask|ShiftMask,                       XK_0,       togglegaps,     {0} },
-
-	//	{ MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } },
-	//	{ MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } },
-	//	{ MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
-	//	{ MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } },
-	//	{ MODKEY|Mod4Mask|ControlMask,  XK_h,      incrigaps,      {.i = +1 } },
-	//	{ MODKEY|Mod4Mask|ControlMask,  XK_l,      incrigaps,      {.i = -1 } },
-	//	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
-	//	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
-	//	{ MODKEY,                       XK_y,      incrihgaps,     {.i = +1 } },
-	//	{ MODKEY,                       XK_o,      incrihgaps,     {.i = -1 } },
-	//	{ MODKEY|ControlMask,           XK_y,      incrivgaps,     {.i = +1 } },
-	//	{ MODKEY|ControlMask,           XK_o,      incrivgaps,     {.i = -1 } },
-	//	{ MODKEY|Mod4Mask,              XK_y,      incrohgaps,     {.i = +1 } },
-	//	{ MODKEY|Mod4Mask,              XK_o,      incrohgaps,     {.i = -1 } },
-	//	{ MODKEY|ShiftMask,             XK_y,      incrovgaps,     {.i = +1 } },
-	//	{ MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },
-
-	// Pathch -2 actualfullscreen
-	{ MODKEY|ShiftMask,				XK_f,      togglefullscr,  {0} },
-
-	// Patch-3 sticky
-	{ MODKEY,                       XK_s,      togglesticky,   {0} },
-
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },		/* tile */
-	{ MODKEY|ShiftMask,				XK_t,      setlayout,      {.v = &layouts[1]} },		/* deck */
-
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },		/* monocle */
-	{ MODKEY|ShiftMask,				XK_m,	   setlayout,	   {.v = &layouts[3]} },		/* centeredmaster */
-	{ MODKEY|ControlMask|ShiftMask,	XK_m,	   setlayout,	   {.v = &layouts[4]} },		/* centeredfloatingmaster */
-
-	{ MODKEY,						XK_g,	   setlayout,	   {.v = &layouts[5]} },		/* grid */
-	{ MODKEY|ShiftMask,				XK_g,	   setlayout,	   {.v = &layouts[6]} },		/* bstack (TTT) */
-	{ MODKEY|ShiftMask|ControlMask, XK_g,	   setlayout,	   {.v = &layouts[7]} },		/* bstackhoriz(===)*/
-
-	{ MODKEY,						XK_f,	   setlayout,	   {.v = &layouts[8]} },		/* bstackhoriz */
-
-
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } }, /* View all window on screen*/
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } }, /* Focused window appear on all tags*/
+	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-
-	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	/* close all session of current $USER , use startx */
-	{ MODKEY|ShiftMask|ControlMask, XK_q,      spawn,          SHCMD(TERMINAL " pkill -u $USER -9")},
-
 	TAGKEYS(                        XK_1,                      0)
-		TAGKEYS(                        XK_2,                      1)
-		TAGKEYS(                        XK_3,                      2)
-		TAGKEYS(                        XK_4,                      3)
-		TAGKEYS(                        XK_5,                      4)
-		TAGKEYS(                        XK_6,                      5)
-		TAGKEYS(                        XK_7,                      6)
-		TAGKEYS(                        XK_8,                      7)
-		TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_2,                      1)
+	TAGKEYS(                        XK_3,                      2)
+	TAGKEYS(                        XK_4,                      3)
+	TAGKEYS(                        XK_5,                      4)
+	TAGKEYS(                        XK_6,                      5)
+	TAGKEYS(                        XK_7,                      6)
+	TAGKEYS(                        XK_8,                      7)
+	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	
+	
+	// Patche(s) custom key(s)
+	{ MODKEY,                       XK_s,      togglesticky,   {0} }, // Stiky window
+	{ MODKEY,						XK_f,      togglefullscr,  {0} }, // Fullscreen window
+
 };
 
 /* button definitions */
@@ -306,3 +191,4 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
+
