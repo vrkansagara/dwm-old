@@ -110,10 +110,11 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
-static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+static float mfact				= 0.55; /* factor of master area size [0.05..0.95] */
+static int nmaster				= 1;    /* number of clients in master area */
+static int resizehints			= 0;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1;	/* 1 will force focus on the fullscreen window */
+
 
 /* Mask        | Value | Key */
 /* ------------+-------+------------ */
@@ -144,6 +145,40 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 // static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { TERMINAL, NULL };
+
+// Brightness controll using (xdotool also useful)
+static const char *brightup[]       = { "brightness.sh", "up", "100", NULL };
+static const char *brightdown[]     = { "brightness.sh", "down", "100", NULL };
+
+// Volume specific settings (xdotool also useful)
+static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+1%",     NULL };
+static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-1%",     NULL };
+static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",  NULL };
+
+/*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+	{ "color0",		STRING,	&normbordercolor },
+	{ "color8",		STRING,	&selbordercolor },
+	{ "color0",		STRING,	&normbgcolor },
+	{ "color4",		STRING,	&normfgcolor },
+	{ "color0",		STRING,	&selfgcolor },
+	{ "color4",		STRING,	&selbgcolor },
+	{ "borderpx",		INTEGER, &borderpx },
+	{ "snap",		INTEGER, &snap },
+	{ "showbar",		INTEGER, &showbar },
+	{ "topbar",		INTEGER, &topbar },
+	{ "nmaster",		INTEGER, &nmaster },
+	{ "resizehints",	INTEGER, &resizehints },
+	{ "mfact",		FLOAT,	&mfact },
+	{ "gappih",		INTEGER, &gappih },
+	{ "gappiv",		INTEGER, &gappiv },
+	{ "gappoh",		INTEGER, &gappoh },
+	{ "gappov",		INTEGER, &gappov },
+	{ "swallowfloating",	INTEGER, &swallowfloating },
+	{ "smartgaps",		INTEGER, &smartgaps },
+};
 
 
 static Key keys[] = {
@@ -198,6 +233,24 @@ static Key keys[] = {
 	// Patche(s) custom key(s)
 	{ MODKEY,                       XK_s,      togglesticky,   {0} }, // Stiky window
 	{ MODKEY,						XK_f,      togglefullscr,  {0} }, // Fullscreen window
+	
+	
+	/* Vallabh @START */
+
+	{ MODKEY|Mod1Mask,              XK_s,		spawn,			SHCMD("screenkey &") },
+	{ MODKEY|Mod1Mask|ShiftMask,	XK_s,		spawn,			SHCMD("pkill -9 screenkey") },
+	{ MODKEY,						XK_x,		spawn,			SHCMD("xkill") },
+
+	{ 0,		XF86XK_MonBrightnessUp,			spawn,			{.v = brightup } },
+	{ 0,		XF86XK_MonBrightnessDown,		spawn,			{.v = brightdown } },
+	{ 0,		XF86XK_AudioLowerVolume,		spawn,			{.v = downvol } },
+	{ 0,		XF86XK_AudioMute,				spawn,			{.v = mutevol } },
+	{ 0,		XF86XK_AudioRaiseVolume,		spawn,			{.v = upvol   } },
+
+	/* start editor*/
+	{ MODKEY|ControlMask,           XK_Return, spawn,          SHCMD(TERMINAL " -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME") },
+
+	/* Vallabh @END */
 
 };
 
