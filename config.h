@@ -234,6 +234,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_s,      togglesticky,   {0} }, // Stiky window
 	{ MODKEY,						XK_f,      togglefullscr,  {0} }, // Fullscreen window
 	
+	// vanitygaps
+	{ MODKEY|ShiftMask|ControlMask,                         XK_j,		incrgaps,       {.i = +3 } },
+	{ MODKEY|ShiftMask|ControlMask,                         XK_k,		incrgaps,       {.i = -3 } },
+	{ Mod4Mask|ShiftMask|ControlMask,                       XK_0,       togglegaps,     {0} },
+
 	
 	/* Vallabh @START */
 
