@@ -40,7 +40,7 @@ static char *colors[][3]		= {
 
 
 /* initial layouts per tag ( Index of layouts[]  */
-static const int initlayouts[] = { 0, 1, 3, 0, 5, 4, 2 ,2, 2 };
+static const int initlayouts[] = { 0, 1, 3, 0, 6, 4, 2 ,2, 2 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -54,9 +54,9 @@ static const Layout layouts[] = {
 	{ "|M|",		centeredmaster },			/* 3. Master in middle, slaves on sides */
 	{ ">M>",		centeredfloatingmaster },	/* 4. Same but master floats */
 
-	// { "HHH",		grid },						/* 5. Grid layout */
-	// { "TTT",		bstack},					/* 6. Master on top, slaves on bottom */
-	// { "===",		bstackhoriz},				/* 7. Bstack horiz layout */
+	{ "HHH",		grid },						/* 5. Grid layout */
+	{ "TTT",		bstack},					/* 6. Master on top, slaves on bottom */
+	{ "===",		bstackhoriz},				/* 7. Bstack horiz layout */
 
 	{ "><>",		NULL },						/* 8. no layout function means floating behavior */
 	{ NULL,			NULL },						/* ~ Failback */
