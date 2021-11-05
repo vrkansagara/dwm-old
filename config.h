@@ -51,8 +51,8 @@ static const Layout layouts[] = {
 	{ "[D]",		deck},						/* 8. Master on left, slaves in monocle-like mode on right */
 
 	{ "[M]",		monocle },                  /* 2. All windows on top of eachother ( Full window ) */
-	// { "|M|",		centeredmaster },			/* 3. Master in middle, slaves on sides */
-	// { ">M>",		centeredfloatingmaster },	/* 4. Same but master floats */
+	{ "|M|",		centeredmaster },			/* 3. Master in middle, slaves on sides */
+	{ ">M>",		centeredfloatingmaster },	/* 4. Same but master floats */
 
 	// { "HHH",		grid },						/* 5. Grid layout */
 	// { "TTT",		bstack},					/* 6. Master on top, slaves on bottom */
