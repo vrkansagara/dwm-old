@@ -40,7 +40,7 @@ static char *colors[][3]		= {
 
 
 /* initial layouts per tag ( Index of layouts[]  */
-static const int initlayouts[] = { 0, 6, 3, 0, 5, 4, 2 ,2, 2 };
+static const int initlayouts[] = { 0, 1, 3, 0, 5, 4, 2 ,2, 2 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -48,7 +48,7 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",		tile },						/* 0. Default: Master on left, slaves on right */
-	{ "[D]",		deck},						/* 8. Master on left, slaves in monocle-like mode on right */
+	{ "[D]",		deck},						/* 1. Master on left, slaves in monocle-like mode on right */
 
 	{ "[M]",		monocle },                  /* 2. All windows on top of eachother ( Full window ) */
 	{ "|M|",		centeredmaster },			/* 3. Master in middle, slaves on sides */
@@ -58,7 +58,7 @@ static const Layout layouts[] = {
 	// { "TTT",		bstack},					/* 6. Master on top, slaves on bottom */
 	// { "===",		bstackhoriz},				/* 7. Bstack horiz layout */
 
-	{ "><>",		NULL },						/* 1. no layout function means floating behavior */
+	{ "><>",		NULL },						/* 8. no layout function means floating behavior */
 	{ NULL,			NULL },						/* ~ Failback */
 };
 
@@ -100,8 +100,9 @@ static const Rule rules[] = {
 
 	// Tag - 8 ( Heavy on memory )
 	{   "jetbrains-phpstorm",       "jetbrains-phpstorm",    NULL,       1<<7,       0,      0},
-	{   "Postman",                   "postman",                NULL,       1<<7,       0,      0},
-	{   "code",                       "code",                   NULL,       1 << 7,       0,    0 },
+	{   "Postman",                  "postman",                NULL,       1<<7,       0,      0},
+	{   "code",                     "code",                   NULL,       1 << 7,       0,    0 },
+	{ 	"Geany",					"geany",               NULL,       1 << 7,       0,           1 },
 
 	// Tag - 9 ( Things on WWWW )
 	{ "Firefox"                 ,"Navigator",               NULL,       1 << 8,       0,           1 },
@@ -114,13 +115,26 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
+/* Mask        | Value | Key */
+/* ------------+-------+------------ */
+/* ShiftMask   |     1 | Shift */
+/* LockMask    |     2 | Caps Lock */
+/* ControlMask |     4 | Ctrl */
+/* Mod1Mask    |     8 | Alt */
+/* Mod2Mask    |    16 | Num Lock */
+/* Mod3Mask    |    32 | Scroll Lock */
+/* Mod4Mask    |    64 | Windows */
+/* Mod5Mask    |   128 | ??? */
+
 /* key definitions */
-#define MODKEY Mod1Mask
+// #define MODKEY Mod1Mask // Alt key for meta (Default as per DWM)
+#define AltMask Mod1Mask  // Alt key for meta
+#define MODKEY Mod4Mask // Window key for meta
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -146,9 +160,21 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+
+
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },		/* tile */
+	{ MODKEY|ShiftMask,				XK_t,      setlayout,      {.v = &layouts[1]} },		/* deck */
+
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },		/* monocle */
+	{ MODKEY|ShiftMask,				XK_m,	   setlayout,	   {.v = &layouts[3]} },		/* centeredmaster */
+	{ MODKEY|ControlMask|ShiftMask,	XK_m,	   setlayout,	   {.v = &layouts[4]} },		/* centeredfloatingmaster */
+
+	{ MODKEY,						XK_g,	   setlayout,	   {.v = &layouts[5]} },		/* grid */
+	{ MODKEY|ShiftMask,				XK_g,	   setlayout,	   {.v = &layouts[6]} },		/* bstack (TTT) */
+	{ MODKEY|ShiftMask|ControlMask, XK_g,	   setlayout,	   {.v = &layouts[7]} },		/* bstackhoriz(===)*/
+
+	{ MODKEY,						XK_f,	   setlayout,	   {.v = &layouts[8]} },		/* bstackhoriz */
+	
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
