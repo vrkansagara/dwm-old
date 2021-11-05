@@ -137,6 +137,15 @@ static const int lockfullscreen = 1;	/* 1 will force focus on the fullscreen win
 { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
+#define STACKKEYS(MOD,ACTION) \
+	{ MOD, XK_j,     ACTION##stack, {.i = INC(+1) } }, \
+	{ MOD, XK_k,     ACTION##stack, {.i = INC(-1) } }, \
+	{ MOD, XK_grave, ACTION##stack, {.i = PREVSEL } },
+// { MOD, XK_q,     ACTION##stack, {.i = 0 } }, \
+// { MOD, XK_a,     ACTION##stack, {.i = 1 } }, \
+// { MOD, XK_z,     ACTION##stack, {.i = 2 } }, \
+// { MOD, XK_x,     ACTION##stack, {.i = -1 } },
+
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
@@ -186,8 +195,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	// { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	// { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
@@ -239,6 +248,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask|ControlMask,                         XK_k,		incrgaps,       {.i = -3 } },
 	{ Mod4Mask|ShiftMask|ControlMask,                       XK_0,       togglegaps,     {0} },
 
+	// stacker ( focuse and change stack of slave
+	STACKKEYS(MODKEY,                          focus)
+	STACKKEYS(MODKEY|ShiftMask,                push)
 	
 	/* Vallabh @START */
 
