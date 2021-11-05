@@ -7,6 +7,7 @@ This window manager keep the philosophy of `unix`
 ~~~bash
 Linux Use		:- If there is terminal there is a way.
 Developer User	:- If there is vim there is geek.
+
 ~~~
 
 # Basic Reference (Navigation)
