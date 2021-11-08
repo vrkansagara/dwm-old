@@ -11,7 +11,8 @@
 // grep $USER /etc/passwd /** Is current user has default shell */
 // chsh -s $(which zsh) /** Change default shell if not */
 // grep zsh /etc/shells /** Is valid login shell *?
-#define TERMINAL_PATH "/bin/zsh"
+// TERMINAL_PATH will not be in effect once user has pre-defined shell.
+#define TERMINAL_PATH "/bin/bash"
 
 /* appearance */
 static unsigned int borderpx        = 3;        /* border pixel of windows */
@@ -40,7 +41,7 @@ static char *colors[][3]		= {
 
 
 /* initial layouts per tag ( Index of layouts[]  */
-static const int initlayouts[] = { 0, 1, 3, 0, 6, 4, 2 ,2, 2 };
+static const int initlayouts[] = { 0, 6, 3, 0, 6, 4, 2 ,2, 2 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -137,6 +138,7 @@ static const int lockfullscreen = 1;	/* 1 will force focus on the fullscreen win
 { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
+// Grave button = button immediately above the TAB on most keyboards.
 #define STACKKEYS(MOD,ACTION) \
 	{ MOD, XK_j,     ACTION##stack, {.i = INC(+1) } }, \
 	{ MOD, XK_k,     ACTION##stack, {.i = INC(-1) } }, \
@@ -227,6 +229,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -237,7 +240,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	
 	
 	// Patche(s) custom key(s)
 	{ MODKEY,                       XK_s,      togglesticky,   {0} }, // Stiky window
@@ -266,6 +268,10 @@ static Key keys[] = {
 
 	/* start editor*/
 	{ MODKEY|ControlMask,           XK_Return, spawn,          SHCMD(TERMINAL " -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME") },
+	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
+	/* close all session of current $USER , use startx */
+	{ MODKEY|ShiftMask|ControlMask, XK_q,      spawn,          SHCMD(TERMINAL " pkill -u $USER -9")},
+
 
 	/* Vallabh @END */
 
