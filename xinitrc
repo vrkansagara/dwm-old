@@ -87,11 +87,21 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
 
 fi
 
+	eval $(
+      /usr/bin/killall ssh-agent
+      /usr/bin/ssh-agent
+      ssh-add ~/.ssh/id_rsa
+    )
+    eval $(
+      /usr/bin/killall gpg-agent
+      /usr/bin/gpg-agent --daemon
+	  export GPGKEY=489E1DB687B7E675
+    )
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=747465
 /usr/lib/notification-daemon/notification-daemon &
 
 # X window lock start
-xautolock -time 1 -locker slock &
+xautolock -time 5 -locker slock &
 
 # Start Window Manager (Alwayse last line)
 # Log stderror to a file
