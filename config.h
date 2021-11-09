@@ -92,8 +92,9 @@ static const Rule rules[] = {
 	{   "Anydesk",      "anydesk",      NULL,       1<<4,       0,      0},
 
 	// Tag - 6 (Utilities)
+	{ "WorkComposer"    ,"workcomposer",       NULL,       1 << 5,       0,           0 },
 	{ "Hubstaff"    ,"Hubstaff",       NULL,       1 << 5,       0,           0 },
-	{ "KeePassXC"    ,"keepassxc",       NULL,       1 << 5,       0,           0 },
+	{ "KeePassXC"    ,"keepassxc",       NULL,       1 << 5,       0,           1 },
 	{ "obs"    ,"obs",       NULL,       1 << 5,       0,           0 },
 
 	// Tag - 7 ( VIM way, Light weight on memory )
@@ -220,7 +221,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask|ControlMask, XK_g,	   setlayout,	   {.v = &layouts[7]} },		/* bstackhoriz(===)*/
 
 	{ MODKEY,						XK_f,	   setlayout,	   {.v = &layouts[8]} },		/* bstackhoriz */
-	
+
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -240,11 +241,11 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	
+
 	// Patche(s) custom key(s)
 	{ MODKEY,                       XK_s,      togglesticky,   {0} }, // Stiky window
 	{ MODKEY,						XK_f,      togglefullscr,  {0} }, // Fullscreen window
-	
+
 	// vanitygaps
 	{ MODKEY|ShiftMask|ControlMask,                         XK_j,		incrgaps,       {.i = +3 } },
 	{ MODKEY|ShiftMask|ControlMask,                         XK_k,		incrgaps,       {.i = -3 } },
@@ -253,7 +254,7 @@ static Key keys[] = {
 	// stacker ( focuse and change stack of slave
 	STACKKEYS(MODKEY,                          focus)
 	STACKKEYS(MODKEY|ShiftMask,                push)
-	
+
 	/* Vallabh @START */
 
 	{ MODKEY|Mod1Mask,              XK_s,		spawn,			SHCMD("screenkey &") },
