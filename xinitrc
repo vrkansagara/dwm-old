@@ -1,3 +1,29 @@
+Day() {
+  printf $(date "+%e" | sed -e 's/\ //')
+
+  case $(date +%d) in
+  01 | 21 | 31) printf "${day}st" ;;
+  02 | 22) printf "${day}nd" ;;
+  03 | 23) printf "${day}rd" ;;
+  *) printf "${day}th" ;;
+  esac
+}
+
+Battery() {
+  dir=/sys/class/power_supply/BAT0
+
+  grep -q ^C "${dir}"/status && printf +
+  cat "${dir}"/capacity
+}
+
+# invoke global X session script
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/*; do
+    [ -x "$f" ] && . "$f"
+  done
+  unset f
+fi
+
 # Used for the phpStorm program
 export _JAVA_AWT_WM_NONREPARENTING=1
 export AWT_TOOLKIT=MToolkit
