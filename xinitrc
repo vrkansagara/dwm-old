@@ -42,11 +42,12 @@ feh --bg-fill ~/git/vrkansagara/dwm/images
 # st , dwm transperent
 /usr/bin/cputool -c 5 -- /usr/bin/compton &
 
- /usr/bin/cputool -c 5 -- /usr/local/bin/st -e alsamixer &
- /usr/bin/cputool -c 5 -- /usr/local/bin/st &
- /usr/bin/cputool -c 5 -- /usr/local/bin/st -e htop -u $USER -d 120 &
+/usr/bin/cputool -c 5 -- /usr/local/bin/st -e alsamixer &
+/usr/bin/cputool -c 5 -- /usr/local/bin/st &
+/usr/bin/cputool -c 5 -- /usr/local/bin/st -e htop -u $USER -d 120 &
 #  /usr/bin/cputool -c 5 -- guake &
- /usr/bin/cputool -c 5 -- ~/Hubstaff/HubstaffClient.bin.x86_64 &
+# /usr/bin/cputool -c 5 -- ~/Hubstaff/HubstaffClient.bin.x86_64 &
+/usr/bin/cputool -c 5 -- ~/Applications/workcomposer-linux-installer.AppImage &
 
 /usr/bin/cputool -c 20 -- /usr/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
 /usr/bin/cputool -c 20 -- thunar &
@@ -67,7 +68,7 @@ feh --bg-fill ~/git/vrkansagara/dwm/images
 # DWM top bar using conky
 # (sh ~/git/vrkansagara/dwm/conky/conky.sh | while read LINE; do xsetroot -name "$LINE"; done) &
 while true; do
-	(conky | while read LINE; do xsetroot -name "$LINE"; done)
+(conky | while read LINE; do xsetroot -name "$LINE"; done)
 sleep 1
 done&
 
@@ -77,14 +78,14 @@ killall gpg-agent
 eval $(gpg-agent)
 
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=747465
-/usr/lib/notification-daemon/notification-daemon &
+	/usr/lib/notification-daemon/notification-daemon &
 
 # X window lock start
-xautolock -time 1 -locker slock &
+	xautolock -time 1 -locker slock &
 
 # Start Window Manager (Alwayse last line)
 # Log stderror to a file
 # Insted of quiting dwm , make it hot reload(Will not disturbe your stream while hot reload)
- while :; do
+	while :; do
 	/usr/local/bin/dwm 2> /tmp/dwm.log
-done
+	done
