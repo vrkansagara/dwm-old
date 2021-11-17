@@ -72,13 +72,9 @@ sleep 1
 done&
 
 #evaluate the SSH agent
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-    export GPGKEY=8BA6E7ABD8112B3E
-	killall ssh-agent gpg-agent
-    eval $(ssh-agent)
-    eval $(gpg-agent)
-    ssh-add ~/.ssh/id_rsa
-fi
+export GPGKEY=8BA6E7ABD8112B3E
+killall gpg-agent
+eval $(gpg-agent)
 
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=747465
 /usr/lib/notification-daemon/notification-daemon &
