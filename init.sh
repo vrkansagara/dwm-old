@@ -56,8 +56,8 @@ ${SUDO} rm -rf /usr/share/bin/dwm
 ${SUDO} make install
 ${SUDO} make clean
 
-# ${SUDO} unlink /usr/share/xsessions/vallabh.desktop
-# ${SUDO} ln -s dwm.desktop /usr/share/xsessions/vallabh.desktop
+${SUDO} unlink /usr/share/xsessions/vallabh.desktop
+${SUDO} ln -s dwm.desktop /usr/share/xsessions/vallabh.desktop
 
 ${SUDO} unlink $HOME/.xinitrc
 ${SUDO} ln -s $(pwd)/xinitrc $HOME/.xinitrc
