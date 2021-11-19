@@ -731,7 +731,7 @@ createmon(void)
 			 * @ref:-  static const int initdmenu[] = { 1, 0, 1 };
 			 * @file config.h
 			 */
-			m->pertag->showbars[i] = &layouts[initdmenu[i-1]];
+			m->pertag->showbars[i] = initdmenu[i-1];
 		}
 		
 	}
