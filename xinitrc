@@ -47,7 +47,7 @@ feh --bg-fill ~/git/vrkansagara/dwm/images
 /usr/bin/cputool -c 5 -- /usr/local/bin/st -e htop -u $USER -d 120 &
 #  /usr/bin/cputool -c 5 -- guake &
 # /usr/bin/cputool -c 5 -- ~/Hubstaff/HubstaffClient.bin.x86_64 &
-/usr/bin/cputool -c 5 -- ~/Applications/workcomposer-linux-installer.AppImage &
+/usr/bin/cputool -c 10 -- ~/Applications/workcomposer-linux-installer.AppImage &
 
 /usr/bin/cputool -c 20 -- /usr/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
 /usr/bin/cputool -c 20 -- thunar &

@@ -42,7 +42,7 @@ Developer User	:- If there is vim there is geek.
 - [Mod]+[left mouse button]			- to move it around.
 - [Mod]+[middle mouse button]			- onto the window, to toggle being floating (Very useful without disturbing current mode )
 
-#Layout
+# Layout
 By default dwm is in tiled layout mode.
 - [Mod]+[t]               - Tiled mode.
 - [Mod]+[f]               - floating mode.
@@ -51,39 +51,40 @@ By default dwm is in tiled layout mode.
 - [CTRL}+[Mod]+[c]		- Center floating master mode.
 - [Mod]+[g]				- Grid mode.
 
-#Screens
+# Screens
 I am using multiple monitor and it's working well.
 - [Mod]+[,]				- focus previous screen
 - [Mod}+[.]				- focus next screen
 - [Mod]+[Shift]+[,]		- send window to previous screen
 - [Mod]+[Shift]+[.]		- send window to next screen
 
-#Restarting/Quitting
+# Restarting/Quitting
 - [Shift]+[Mod]+[q]		- Reload dwm with latest configuration and settings.
 - For quiting/restart of system, I would prefer to `init 0/6` or `shutdown now` (without any delay)
 
-#Status
+# Status
 - By default dwm is showing dwm-X.X in its statusbar. This text can be changed by setting the WM_NAME property of the root window.
 - For simplicity I would prefer to work with `conky` see conky and it's configuration
 
 
-#Patches
+# Patches
 For my own preference , I have added few patches which suite my working style.
 
 - By default dwm is showing dwm-X.X in its statusbar. This text can be changed by setting the WM_NAME property of the root window.
 - For simplicity I would prefer to work with `conky` see conky and it's configuration
+- My custom patch by my self at [here](https://github.com/vrkansagara/dwm/blob/master/dwm.c#L721)
 
-#Defining tags and workspaces ( I like this )
+# Defining tags and workspaces ( I like this )
 Users often confuse dwm's tagging system with workspaces (or virtual desktops). Once you understand that tags are not workspaces, you'll realise why dwm was given its name - dynamic window manager - and how powerful it is.
 
 A tag is simply a label placed on windows. A window may have one or more tags. Tags provide no other functionality.
 
-#Where to gro from here
+# Where to gro from here
 - Suckless Terminal `st` ( https://github.com/vrkansagara/st )
 - Suckless Slock `slock` ( https://github.com/vrkansagara/slock) 
 - My IDE using ( VIM + UNIX)  (https://github.com/vrkansagara/ide)
 
-#References
+# References
 - Ref:- https://gist.github.com/erlendaakre/12eb90eef84a3ab81f7b531e516c9594
 - https://ratfactor.com/dwm
 - https://github.com/w0ng/wongdev.com/blob/master/content/dwm-tags-are-not-workspaces.md
