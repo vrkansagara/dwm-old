@@ -43,6 +43,9 @@ static char *colors[][3]		= {
 /* initial layouts per tag ( Index of layouts[]  */
 static const int initlayouts[] = { 0, 6, 3, 0, 6, 4, 2 ,2, 2 };
 
+/* show/hide dmenu per tag ( Index of layouts[]  */
+static const int initdmenu[] = { 1, 1, 1, 1, 1, 1, 0, 1, 0}
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
