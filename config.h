@@ -41,7 +41,7 @@ static char *colors[][3]		= {
 
 
 /* initial layouts per tag ( Index of layouts[]  */
-static const int initlayouts[] = { 0, 6, 3, 0, 6, 4, 2 ,2, 2 };
+static const int initlayouts[] = { 0, 6, 3, 0, 6, 0, 2 ,2, 2 };
 
 /* show/hide dmenu per tag ( Index of layouts[]  */
 static const int initdmenu[] = { 1, 1, 1, 1, 1, 1, 0, 1, 0};
@@ -97,6 +97,7 @@ static const Rule rules[] = {
 	// Tag - 6 (Utilities)
 	{ "WorkComposer"    ,"workcomposer",       NULL,       1 << 5,       0,           0 },
 	{ "Hubstaff"    ,"Hubstaff",       NULL,       1 << 5,       0,           0 },
+	{ "openfortiGUI"    ,"openfortigui",       NULL,       1 << 5,       0,           0 },
 	{ "KeePassXC"    ,"keepassxc",       NULL,       1 << 5,       0,           1 },
 	{ "obs"    ,"obs",       NULL,       1 << 5,       0,           0 },
 
@@ -107,7 +108,7 @@ static const Rule rules[] = {
 	{   "jetbrains-phpstorm",       "jetbrains-phpstorm",    NULL,       1<<7,       0,      0},
 	{   "Postman",                  "postman",                NULL,       1<<7,       0,      0},
 	{   "code",                     "code",                   NULL,       1 << 7,       0,    0 },
-	{ 	"Geany",					"geany",               NULL,       1 << 7,       0,           1 },
+	{	"Geany",					"geany",               NULL,       1 << 7,       0,           1 },
 
 	// Tag - 9 ( Things on WWWW )
 	{ "Firefox"                 ,"Navigator",               NULL,       1 << 8,       0,           1 },
@@ -272,6 +273,7 @@ static Key keys[] = {
 
 	/* start editor*/
 	{ MODKEY|ControlMask,           XK_Return, spawn,          SHCMD(TERMINAL " -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME") },
+	{ 0,							XK_F1,     spawn,          SHCMD(TERMINAL " -c vrkansagara-st -n vrkansagara-st -e vim $HOME") },
 	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
 	/* close all session of current $USER , use startx */
 	{ MODKEY|ShiftMask|ControlMask, XK_q,      spawn,          SHCMD(TERMINAL " pkill -u $USER -9")},
