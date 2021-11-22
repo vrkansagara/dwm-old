@@ -12,7 +12,7 @@
 // chsh -s $(which zsh) /** Change default shell if not */
 // grep zsh /etc/shells /** Is valid login shell *?
 // TERMINAL_PATH will not be in effect once user has pre-defined shell.
-#define TERMINAL_PATH "/bin/bash"
+#define TERMINAL_PATH "/bin/zsh"
 
 /* appearance */
 static unsigned int borderpx        = 3;        /* border pixel of windows */

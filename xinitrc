@@ -1,21 +1,3 @@
-Day() {
-  printf $(date "+%e" | sed -e 's/\ //')
-
-  case $(date +%d) in
-  01 | 21 | 31) printf "${day}st" ;;
-  02 | 22) printf "${day}nd" ;;
-  03 | 23) printf "${day}rd" ;;
-  *) printf "${day}th" ;;
-  esac
-}
-
-Battery() {
-  dir=/sys/class/power_supply/BAT0
-
-  grep -q ^C "${dir}"/status && printf +
-  cat "${dir}"/capacity
-}
-
 # invoke global X session script
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do
@@ -23,12 +5,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   done
   unset f
 fi
-
-# Used for the phpStorm program
-export _JAVA_AWT_WM_NONREPARENTING=1
-export AWT_TOOLKIT=MToolkit
-wmname LG3D
-# export DISPLAY=:0
 
 # set baground
 feh --bg-fill ~/git/vrkansagara/dwm/images
@@ -68,24 +44,31 @@ feh --bg-fill ~/git/vrkansagara/dwm/images
 # DWM top bar using conky
 # (sh ~/git/vrkansagara/dwm/conky/conky.sh | while read LINE; do xsetroot -name "$LINE"; done) &
 while true; do
-(conky | while read LINE; do xsetroot -name "$LINE"; done)
-sleep 1
+	(conky | while read LINE; do xsetroot -name "$LINE"; done)
+	sleep 1
 done&
 
 #evaluate the SSH agent
 export GPGKEY=8BA6E7ABD8112B3E
-killall gpg-agent
+killall gpg-agent ssh-agent
+eval $(ssh-agent)
 eval $(gpg-agent)
 
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=747465
-	/usr/lib/notification-daemon/notification-daemon &
+/usr/lib/notification-daemon/notification-daemon &
 
 # X window lock start
-	xautolock -time 1 -locker slock &
+# xautolock -time 1 -locker slock &
+
+# zsh/demnu clean cache
+mkdir -p $HOME/old 
+mv .bash* .profile $HOME/old
+mv $HOME/.cache/dmenu_run $HOME/old
+mv .zcompdump-* $HOME/old
 
 # Start Window Manager (Alwayse last line)
 # Log stderror to a file
 # Insted of quiting dwm , make it hot reload(Will not disturbe your stream while hot reload)
-	while :; do
+while :; do
 	/usr/local/bin/dwm 2> /tmp/dwm.log
-	done
+done
