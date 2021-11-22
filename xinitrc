@@ -1,10 +1,10 @@
 # invoke global X session script
-if [ -d /etc/X11/xinit/xinitrc.d ]; then
-  for f in /etc/X11/xinit/xinitrc.d/*; do
-    [ -x "$f" ] && . "$f"
-  done
-  unset f
-fi
+# if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  # for f in /etc/X11/xinit/xinitrc.d/*; do
+    # [ -x "$f" ] && . "$f"
+  # done
+  # unset f
+# fi
 
 # set baground
 feh --bg-fill ~/git/vrkansagara/dwm/images
@@ -19,10 +19,10 @@ feh --bg-fill ~/git/vrkansagara/dwm/images
 /usr/bin/cputool -c 5 -- /usr/bin/compton &
 
 /usr/bin/cputool -c 5 -- /usr/local/bin/st -e alsamixer &
-/usr/bin/cputool -c 5 -- /usr/local/bin/st &
 /usr/bin/cputool -c 5 -- /usr/local/bin/st -e htop -u $USER -d 120 &
 #  /usr/bin/cputool -c 5 -- guake &
 # /usr/bin/cputool -c 5 -- ~/Hubstaff/HubstaffClient.bin.x86_64 &
+/usr/bin/cputool -c 10 -- /usr/local/bin/st &
 /usr/bin/cputool -c 10 -- ~/Applications/workcomposer-linux-installer.AppImage &
 
 /usr/bin/cputool -c 20 -- /usr/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
@@ -58,7 +58,7 @@ eval $(gpg-agent)
 /usr/lib/notification-daemon/notification-daemon &
 
 # X window lock start
-# xautolock -time 1 -locker slock &
+xautolock -time 1 -locker slock &
 
 # zsh/demnu clean cache
 mkdir -p $HOME/old 
@@ -69,6 +69,6 @@ mv .zcompdump-* $HOME/old
 # Start Window Manager (Alwayse last line)
 # Log stderror to a file
 # Insted of quiting dwm , make it hot reload(Will not disturbe your stream while hot reload)
-while :; do
+while true; do
 	/usr/local/bin/dwm 2> /tmp/dwm.log
 done

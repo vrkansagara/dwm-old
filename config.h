@@ -12,7 +12,7 @@
 // chsh -s $(which zsh) /** Change default shell if not */
 // grep zsh /etc/shells /** Is valid login shell *?
 // TERMINAL_PATH will not be in effect once user has pre-defined shell.
-#define TERMINAL_PATH "/bin/zsh"
+#define TERMINAL_PATH "/bin/bash"
 
 /* appearance */
 static unsigned int borderpx        = 3;        /* border pixel of windows */
@@ -270,13 +270,17 @@ static Key keys[] = {
 	{ 0,		XF86XK_AudioLowerVolume,		spawn,			{.v = downvol } },
 	{ 0,		XF86XK_AudioMute,				spawn,			{.v = mutevol } },
 	{ 0,		XF86XK_AudioRaiseVolume,		spawn,			{.v = upvol   } },
+	{ 0,		XF86XK_Calculator,				spawn,			SHCMD(TERMINAL " -c calculator -n calculator -e bc -l") },
 
 	/* start editor*/
 	{ MODKEY|ControlMask,           XK_Return, spawn,          SHCMD(TERMINAL " -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME") },
 	{ 0,							XK_F1,     spawn,          SHCMD(TERMINAL " -c vrkansagara-st -n vrkansagara-st -e vim $HOME") },
+	{ MODKEY,						XK_r,      spawn,          SHCMD(TERMINAL " -c htop -n htop -e htop -u $USER -d 60") },
+	{ MODKEY|ShiftMask,				XK_w,		spawn,		SHCMD(TERMINAL " -c nmtui -n nmtui -e sudo nmtui") },
 	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
 	/* close all session of current $USER , use startx */
 	{ MODKEY|ShiftMask|ControlMask, XK_q,      spawn,          SHCMD(TERMINAL " pkill -u $USER -9")},
+
 
 
 	/* Vallabh @END */
