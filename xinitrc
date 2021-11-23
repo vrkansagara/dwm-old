@@ -7,7 +7,11 @@
 # fi
 
 # set baground
-feh --bg-fill ~/git/vrkansagara/dwm/images
+WALLPAPERS="$HOME/git/vrkansagara/dwm/images"
+while true; do
+  find ${WALLPAPERS} -type f -iname "*.jpg" | shuf -n 1 | xargs feh --bg-fill
+sleep  1m
+done&
 
 # Laptop/Desktop specific start up
 ~/.vim/src/Sh/MacBookAir/FunctionKey.sh
@@ -19,7 +23,10 @@ feh --bg-fill ~/git/vrkansagara/dwm/images
 /usr/bin/cputool -c 5 -- /usr/bin/compton &
 
 /usr/bin/cputool -c 5 -- /usr/local/bin/st -e alsamixer &
-/usr/bin/cputool -c 5 -- /usr/local/bin/st -e htop -u $USER -d 120 &
+# htop has dedicated key bindings (MODEKEY + r)
+# /usr/bin/cputool -c 5 -- /usr/local/bin/st -e htop -u $USER -d 120 &
+
+# I like st terminal
 #  /usr/bin/cputool -c 5 -- guake &
 # /usr/bin/cputool -c 5 -- ~/Hubstaff/HubstaffClient.bin.x86_64 &
 /usr/bin/cputool -c 10 -- /usr/local/bin/st &
@@ -61,7 +68,7 @@ eval $(gpg-agent)
 xautolock -time 1 -locker slock &
 
 # zsh/demnu clean cache
-mkdir -p $HOME/old 
+mkdir -p $HOME/old
 mv .bash* .profile $HOME/old
 mv $HOME/.cache/dmenu_run $HOME/old
 mv .zcompdump-* $HOME/old
@@ -70,5 +77,5 @@ mv .zcompdump-* $HOME/old
 # Log stderror to a file
 # Insted of quiting dwm , make it hot reload(Will not disturbe your stream while hot reload)
 while true; do
-	/usr/local/bin/dwm 2> /tmp/dwm.log
+	/usr/local/bin/dwm 2>> /tmp/dwm.log
 done

@@ -17,10 +17,11 @@ fi
 #  Note		  :- test images....
 # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-img=(`find ${SCRIPTDIR} -name '*' -exec file {} \; | grep -o -P '^.+: \w+ image' | cut -d':' -f1`)
+# img=(`find ${SCRIPTDIR} -name '*' -exec file {} \; | grep -o -P '^.+: \w+ image' | cut -d':' -f1`)
+# feh --bg-scale "${img[$RANDOM % ${#img[@]} ]}"
 while true; do
-	feh --bg-scale "${img[$RANDOM % ${#img[@]} ]}"
+  find ${SCRIPTDIR} -type f -iname "*.jpg" | shuf -n 1 | xargs feh --bg-fill
 # sleep 30m
-sleep  1m
+sleep  1
 done
 
