@@ -39,7 +39,7 @@ done&
 /usr/bin/cputool -c 20 -- remmina &
 /usr/bin/cputool -c 20 -- anydesk &
 
-/usr/bin/cputool -c 40 -- skype &
+# /usr/bin/cputool -c 40 -- skype &
 /usr/bin/cputool -c 40 -- teams &
 /usr/bin/cputool -c 40 -- ~/Applications/Postman/Postman &
 
