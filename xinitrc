@@ -58,7 +58,7 @@ eval $(gpg-agent)
 /usr/lib/notification-daemon/notification-daemon &
 
 # X window lock start
-xautolock -time 1 -locker slock &
+# xautolock -time 1 -locker slock &
 
 # zsh/demnu clean cache
 mkdir -p $HOME/old 
