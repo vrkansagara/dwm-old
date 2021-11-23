@@ -57,8 +57,8 @@ eval $(gpg-agent)
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=747465
 /usr/lib/notification-daemon/notification-daemon &
 
-# X window lock start
-# xautolock -time 1 -locker slock &
+# X window lock start ( compile slock if not)
+xautolock -time 1 -locker slock &
 
 # zsh/demnu clean cache
 mkdir -p $HOME/old 

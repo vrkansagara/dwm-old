@@ -163,8 +163,8 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { TERMINAL, NULL };
 
 // Brightness controll using (xdotool also useful)
-static const char *brightup[]       = { "brightness.sh", "up", "100", NULL };
-static const char *brightdown[]     = { "brightness.sh", "down", "100", NULL };
+static const char *brightup[]       = { "/home/vallabh/.vim/bin/brightness.sh", "up", "100", NULL };
+static const char *brightdown[]     = { "/home/vallabh/.vim/bin/brightness.sh", "down", "100", NULL };
 
 // Volume specific settings (xdotool also useful)
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+1%",     NULL };
