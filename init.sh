@@ -25,7 +25,7 @@ fi
 # compton = dwm/st tranparency with x11
 # xdotool = programmetly call keybindings
 # inxi = forensic tool for hardware information
-# xautolock = monitor binary for x time 
+# xautolock = monitor binary for x time
 
 # slock = suckless login manger
 # ${SUDO} apt-get install xautolock xdotool compton inxi scrot
@@ -35,6 +35,9 @@ fi
 
 # xautolock -time 1 -locker slock
 # ${SUDO} cp -R hooks .git/
+
+${SUDO} apt-get install xcb libxcb-xkb-dev x11-xkb-utils libx11-xcb-dev
+libxkbcommon-x11-dev libxcb-res0-dev
 
 FILES="patches/*.diff"
 for f in $FILES; do

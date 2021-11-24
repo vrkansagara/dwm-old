@@ -21,7 +21,7 @@ static unsigned int gappih          = 20;       /* horiz inner gap between windo
 static unsigned int gappiv          = 10;       /* vert inner gap between windows */
 static unsigned int gappoh          = 10;       /* horiz outer gap between windows and screen edge */
 static unsigned int gappov          = 30;       /* vert outer gap between windows and screen edge */
-static int swallowfloating          = 0;        /* 1 means swallow floating windows by default */
+static int swallowfloating          = 1;        /* 1 means swallow floating windows by default */
 static int smartgaps				= 0;        /* 1 means no outer gap when there is only one window */
 static int showbar					= 1;        /* 0 means no bar */
 static const char *fonts[]          = { "Fira Code Medium:size=12:antialias=true:autohint=true", };
@@ -75,44 +75,44 @@ static const Rule rules[] = {
 	 *	xprop -root -notype -f WM_NAME "8u"  |  sed -n -r 's/WM_NAME = \"(.*)\"/\1/p'
 	 */
 
-	/** class           instance,               title,              tags,               isfloating,             monitor */
+	/** class           instance,               title,              tags,               isfloating, isterminal ,noswallow              monitor */
 	// Tag - 1 (General usse case)
-	{   "Thunar",      "thunar",      NULL,       1<<0,       0,      0},
+	{   "Thunar",      "thunar",      NULL,       1<<0,       0, 0,0,    0},
 
 	// Tag - 2 (Terminal way on demand )
-	{   "St",      "st",      NULL,       1<<1,       0,      0},
+	{   "St",      "st",      NULL,       1<<1,       0, 1,0,     0},
 
 
 	// Tag - 3 (Socializing)
-	{   "Skype",      "skype",      NULL,       1<<2,       0,      0},
-	{   "Microsoft Teams - Preview","microsoft teams - preview",      NULL,       1<<2,       0,      0},
+	{   "Skype",      "skype",      NULL,       1<<2,       0, 0,0,     0},
+	{   "Microsoft Teams - Preview","microsoft teams - preview",      NULL, 1<<2,       0, 0,0,     0},
 
 	// Tag - 4 (Office on the way)
-	{   "ringcentral",      "ringcentral",      NULL,       1<<3,       0,      0},
+	{   "ringcentral",      "ringcentral",      NULL,       1<<3,       0,  0,0,    0},
 
 	// Tag - 5 ( Remote things)
-	{   "org.remmina.Remmina" ,"org.remmina.Remmina",       NULL,       1 << 4,       0,           0 },
-	{   "Anydesk",      "anydesk",      NULL,       1<<4,       0,      0},
+	{   "org.remmina.Remmina" ,"org.remmina.Remmina",       NULL,       1 << 4, 0,  0,0,         0 },
+	{   "Anydesk",      "anydesk",      NULL,       1<<4,       0,     0,0, 0},
 
 	// Tag - 6 (Utilities)
-	{ "WorkComposer"    ,"workcomposer",       NULL,       1 << 5,       0,           0 },
-	{ "Hubstaff"    ,"Hubstaff",       NULL,       1 << 5,       0,           0 },
-	{ "openfortiGUI"    ,"openfortigui",       NULL,       1 << 5,       0,           0 },
-	{ "KeePassXC"    ,"keepassxc",       NULL,       1 << 5,       0,           1 },
+	{ "WorkComposer"    ,"workcomposer",       NULL,       1 << 5,       0, 0,0, 0 },
+	{ "Hubstaff"    ,"Hubstaff",       NULL,       1 << 5,       0,          0,0,  0 },
+	{ "openfortiGUI"    ,"openfortigui",       NULL,       1 << 5,       0, 0,0,0 },
+	{ "KeePassXC"    ,"keepassxc",       NULL,       1 << 5,       0,        0,0,   1 },
 	{ "obs"    ,"obs",       NULL,       1 << 5,       0,           0 },
 
 	// Tag - 7 ( VIM way, Light weight on memory )
-	{   "vrkansagara-ide",               "vrkansagara-ide",      NULL,       1<<6,       0,      -1},
+	{   "vrkansagara-ide",               "vrkansagara-ide",      NULL,       1<<6,       0,  1,0,    -1},
 
 	// Tag - 8 ( Heavy on memory )
-	{   "jetbrains-phpstorm",       "jetbrains-phpstorm",    NULL,       1<<7,       0,      0},
-	{   "Postman",                  "postman",                NULL,       1<<7,       0,      0},
-	{   "code",                     "code",                   NULL,       1 << 7,       0,    0 },
-	{	"Geany",					"geany",               NULL,       1 << 7,       0,           1 },
+	{   "jetbrains-phpstorm",       "jetbrains-phpstorm",    NULL,       1<<7,       0,      0,0,0},
+	{   "Postman",                  "postman",                NULL,       1<<7,       0,      0,0,0},
+	{   "code",                     "code",                   NULL,       1 << 7,       0,    0,0,0 },
+	{	"Geany",					"geany",               NULL,       1 << 7,       0,           0,0,1 },
 
 	// Tag - 9 ( Things on WWWW )
-	{ "Firefox"                 ,"Navigator",               NULL,       1 << 8,       0,           1 },
-	{ "Google-chrome"           ,"google-chrome",          NULL,       1 << 8,       0,      1 },
+	{ "Firefox"                 ,"Navigator",               NULL,       1 << 8,       0,           0,0,1 },
+	{ "Google-chrome"           ,"google-chrome",          NULL,       1 << 8,       0,      0,0,1 },
 };
 
 /* layout(s) */
