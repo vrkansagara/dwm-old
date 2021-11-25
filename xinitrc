@@ -21,7 +21,6 @@ done&
 
 # st , dwm transperent
 /usr/bin/compton &
-/usr/local/bin/st -e alsamixer &
 # ~/Hubstaff/HubstaffClient.bin.x86_64 &
 /usr/local/bin/st &
 ~/Applications/workcomposer-linux-installer.AppImage &

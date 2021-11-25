@@ -1,4 +1,3 @@
-
 # set -e # This setting is telling the script to exit on a command error.
 # set -x # You refer to a noisy script.(Used to debugging)
 
@@ -9,7 +8,7 @@ SCRIPT=$(readlink -f "")
 SCRIPTDIR=$(dirname "$SCRIPT")
 
 if [ "$(whoami)" != "root" ]; then
-	SUDO=sudo
+SUDO=sudo
 fi
 
 # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -28,7 +27,7 @@ fi
 # xautolock = monitor binary for x time
 
 # slock = suckless login manger
-# ${SUDO} apt-get install xautolock xdotool compton inxi scrot
+${SUDO} apt-get install --yes --no-install-recommends xautolock xdotool compton inxi scrot
 
 # Check if compositor is running or not
 # inxi -Gxx | grep compositor
@@ -36,48 +35,54 @@ fi
 # xautolock -time 1 -locker slock
 # ${SUDO} cp -R hooks .git/
 
-${SUDO} apt-get install xcb libxcb-xkb-dev x11-xkb-utils libx11-xcb-dev
-libxkbcommon-x11-dev libxcb-res0-dev
+${SUDO} apt-get install --yes --no-install-recommends xcb libxcb-xkb-dev \
+		x11-xkb-utils libx11-xcb-dev \
+		libxkbcommon-x11-dev libxcb-res0-dev \
+		ranger
 
-FILES="patches/*.diff"
-for f in $FILES; do
-	if [ -f "$f" ]; then
+		FILES="patches/*.diff"
+		for f in $FILES; do
+		if [ -f "$f" ]; then
 		echo "Applying path for the [ $f ]"
 		dos2unix $f
 		patch --merge=diff3 -i $f
 		sleep 1
-	fi
-done
+		fi
+		done
 
 # Give current user permission to work with source
-${SUDO} chown $USER  -Rf .
-${SUDO} chgrp $USER  -Rf .
+		${SUDO} chown $USER  -Rf .
+		${SUDO} chgrp $USER  -Rf .
 
-make clean
-make
-${SUDO} rm -rf /usr/share/bin/dwm
-${SUDO} make install
-${SUDO} make clean
+		make clean
+		make
+		${SUDO} mv  /usr/share/bin/dwm /tmp
+		${SUDO} make install
+		${SUDO} make clean
 
-${SUDO} rm -rf /usr/share/xsessions/vallabh.desktop
-${SUDO} ln -s $(pwd)/dwm.desktop /usr/share/xsessions/vallabh.desktop
+		${SUDO} mv  /usr/share/xsessions/vallabh.desktop /tmp
+		${SUDO} ln -s $(pwd)/dwm.desktop /usr/share/xsessions/vallabh.desktop
 
-${SUDO} unlink $HOME/.xinitrc
-${SUDO} ln -s $(pwd)/xinitrc $HOME/.xinitrc
-${SUDO} chmod 744 $HOME/.xinitrc
-${SUDO} chmod u+s /usr/bin/xinit
+		${SUDO} mv  $HOME/.xinitrc /tmp
+		${SUDO} ln -s $(pwd)/xinitrc $HOME/.xinitrc
+		${SUDO} chmod 744 $HOME/.xinitrc
+		${SUDO} chmod u+s /usr/bin/xinit
 
 # Copy conky configuration to home folder
-${SUDO} cp -R conky $HOME/.config
+		${SUDO} cp -R $(pwd)/conky $HOME/.config
+		${SUDO} mv $HOME/.config/ranger /tmp
+		${SUDO} cp -R $(pwd)/ranger $HOME/.config
 
-#  ${SUDO} chsh -s $(which zsh)
+		${SUDO} chown $USER  -Rf $HOME/.config
+		${SUDO} chgrp $USER  -Rf $HOME/.config
+
+		${SUDO} chsh -s $(which zsh) $USER
 
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=747465
 # echo '[D-BUS Service]
 # Name=org.freedesktop.Notifications
 # Exec=/usr/lib/notification-daemon/notification-daemon'| ${SUDO} tee /usr/share/dbus-1/services/org.gnome.Notifications.service > /dev/null
 
+	echo "Your simple window manager is configured and ready to use.........[DONE]."
 
-echo "Your simple window manager is configured and ready to use.........[DONE]."
-
-exit 0
+	exit 0

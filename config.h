@@ -276,6 +276,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Return, spawn,          SHCMD(TERMINAL " -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME") },
 	{ 0,							XK_F1,     spawn,          SHCMD(TERMINAL " -c vrkansagara-st -n vrkansagara-st -e vim $HOME") },
 	{ MODKEY,						XK_r,      spawn,          SHCMD(TERMINAL " -c htop -n htop -e htop -u $USER -d 60") },
+	{ MODKEY,						XK_e,      spawn,          SHCMD(TERMINAL " -c ranger -n ranger -e ranger") },
 	{ MODKEY|ShiftMask,				XK_w,		spawn,		SHCMD(TERMINAL " -c nmtui -n nmtui -e sudo nmtui") },
 	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
 	/* close all session of current $USER , use startx */
