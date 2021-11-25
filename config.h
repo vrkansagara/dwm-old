@@ -12,7 +12,7 @@
 // chsh -s $(which zsh) /** Change default shell if not */
 // grep zsh /etc/shells /** Is valid login shell *?
 // TERMINAL_PATH will not be in effect once user has pre-defined shell.
-#define TERMINAL_PATH "/bin/bash"
+#define TERMINAL_PATH "/bin/zsh"
 
 /* appearance */
 static unsigned int borderpx        = 3;        /* border pixel of windows */
@@ -277,6 +277,7 @@ static Key keys[] = {
 	{ 0,							XK_F1,     spawn,          SHCMD(TERMINAL " -c vrkansagara-st -n vrkansagara-st -e vim $HOME") },
 	{ MODKEY,						XK_r,      spawn,          SHCMD(TERMINAL " -c htop -n htop -e htop -u $USER -d 60") },
 	{ MODKEY,						XK_e,      spawn,          SHCMD(TERMINAL " -c ranger -n ranger -e ranger") },
+	{ MODKEY|ShiftMask,				XK_e,      spawn,          SHCMD(TERMINAL " -c ranger-www -n ranger-www -e ranger") },
 	{ MODKEY|ShiftMask,				XK_w,		spawn,		SHCMD(TERMINAL " -c nmtui -n nmtui -e sudo nmtui") },
 	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
 	/* close all session of current $USER , use startx */

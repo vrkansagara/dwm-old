@@ -10,7 +10,7 @@
 WALLPAPERS="$HOME/git/vrkansagara/dwm/images"
 while true; do
   find ${WALLPAPERS} -type f -iname "*.jpg" | shuf -n 1 | xargs feh --bg-fill
-sleep  5m
+sleep  15m
 done&
 
 # Laptop/Desktop specific start up
@@ -24,8 +24,8 @@ done&
 # ~/Hubstaff/HubstaffClient.bin.x86_64 &
 /usr/local/bin/st &
 ~/Applications/workcomposer-linux-installer.AppImage &
-/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
-thunar &
+/usr/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
+/usr/local/bin/st -c firle-explorer -n firle-explorer -e ranger $HOME/www &
 keepassxc &
 ringcentral &
 remmina &
