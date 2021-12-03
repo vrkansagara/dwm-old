@@ -288,7 +288,6 @@ static Key keys[] = {
 
 
     /* Vallabh @END */
-
 };
 
 /* button definitions */

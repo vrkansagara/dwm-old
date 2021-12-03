@@ -27,7 +27,7 @@ fi
 # xautolock = monitor binary for x time
 
 # slock = suckless login manger
-${SUDO} apt-get install --yes --no-install-recommends xautolock xdotool compton inxi scrot
+${SUDO} apt-get install --yes --no-install-recommends xautolock xdotool compton inxi scrot zsh zfz 
 
 # Check if compositor is running or not
 # inxi -Gxx | grep compositor
@@ -62,7 +62,7 @@ ${SUDO} apt-get install --yes --no-install-recommends xcb libxcb-xkb-dev \
 
 		${SUDO} mv  /usr/share/xsessions/vallabh.desktop /tmp
 		${SUDO} ln -s $(pwd)/dwm.desktop /usr/share/xsessions/vallabh.desktop
-
+        ${SUDO} ln -s $HOME/git/vrkansagara/dwm/ranger  $HOME/.config/
 		${SUDO} mv  $HOME/.xinitrc /tmp
 		${SUDO} ln -s $(pwd)/xinitrc $HOME/.xinitrc
 		${SUDO} chmod 744 $HOME/.xinitrc
