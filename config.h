@@ -285,8 +285,6 @@ static Key keys[] = {
     /* close all session of current $USER , use startx */
     { MODKEY|ShiftMask|ControlMask, XK_q,      spawn,          SHCMD(TERMINAL " pkill -u $USER -9")},
 
-
-
     /* Vallabh @END */
 };
 

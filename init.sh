@@ -27,7 +27,7 @@ fi
 # xautolock = monitor binary for x time
 
 # slock = suckless login manger
-${SUDO} apt-get install --yes --no-install-recommends xautolock xdotool compton inxi scrot zsh zfz 
+${SUDO} apt-get install --yes --no-install-recommends xautolock xdotool compton inxi scrot zsh zfz
 
 # Check if compositor is running or not
 # inxi -Gxx | grep compositor
@@ -39,6 +39,10 @@ ${SUDO} apt-get install --yes --no-install-recommends xcb libxcb-xkb-dev \
 		x11-xkb-utils libx11-xcb-dev \
 		libxkbcommon-x11-dev libxcb-res0-dev \
 		ranger
+
+# Ranger dependencies
+${SUDO} apt install build-essential libpoppler-cpp-dev pkg-config python3-dev
+${SUDO} pip install pdftotext
 
 		FILES="patches/*.diff"
 		for f in $FILES; do
@@ -63,8 +67,9 @@ ${SUDO} apt-get install --yes --no-install-recommends xcb libxcb-xkb-dev \
 		${SUDO} mv  /usr/share/xsessions/vallabh.desktop /tmp
 		${SUDO} ln -s $(pwd)/dwm.desktop /usr/share/xsessions/vallabh.desktop
         ${SUDO} ln -s $HOME/git/vrkansagara/dwm/ranger  $HOME/.config/
-		${SUDO} mv  $HOME/.xinitrc /tmp
-		${SUDO} ln -s $(pwd)/xinitrc $HOME/.xinitrc
+		${SUDO} mv  $HOME/.xinitrc $HOME/.xprofile /tmp
+		${SUDO} ln -s $(pwd)/x11/xinitrc $HOME/.xinitrc
+		${SUDO} ln -s $(pwd)/x11/xprofile $HOME/.xprofile
 		${SUDO} chmod 744 $HOME/.xinitrc
 		${SUDO} chmod u+s /usr/bin/xinit
 
