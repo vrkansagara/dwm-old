@@ -27,7 +27,7 @@ fi
 # xautolock = monitor binary for x time
 
 # slock = suckless login manger
-${SUDO} apt-get install --yes --no-install-recommends xautolock xdotool compton inxi scrot zsh zfz
+${SUDO} apt-get install --yes --no-install-recommends xautolock xdotool compton inxi scrot zsh
 
 # Check if compositor is running or not
 # inxi -Gxx | grep compositor
@@ -87,6 +87,16 @@ ${SUDO} pip install pdftotext
 # echo '[D-BUS Service]
 # Name=org.freedesktop.Notifications
 # Exec=/usr/lib/notification-daemon/notification-daemon'| ${SUDO} tee /usr/share/dbus-1/services/org.gnome.Notifications.service > /dev/null
+
+# Command line fuzzy finder called fzf
+cd /tmp
+[ ! -d "/tmp/fzf" ] && git clone https://github.com/junegunn/fzf.git --depth=1 -b master
+cd /tmp/fzf
+git stash
+git reset --hard HEAD
+git clean -fd
+
+./install --all
 
 	echo "Your simple window manager is configured and ready to use.........[DONE]."
 
