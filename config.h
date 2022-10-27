@@ -109,7 +109,7 @@ static const Rule rules[] = {
     {   "code",                     "code",                   NULL,       1 << 7,       0,    0,0,0 },
     {   "Geany",                    "geany",               NULL,       1 << 7,       0,           0,0,1 },
 
-    // Tag - 9 ( Things on WWWW )
+    // Tag - 9 ( Things on WWW )
     { "Firefox"                 ,"Navigator",               NULL,       1 << 8,       0,           0,0,1 },
     { "Google-chrome"           ,"google-chrome",          NULL,       1 << 8,       0,      0,0,1 },
 };

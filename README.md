@@ -84,6 +84,19 @@ A tag is simply a label placed on windows. A window may have one or more tags. T
 - Suckless Slock `slock` ( https://github.com/vrkansagara/slock) 
 - My IDE using ( VIM + UNIX)  (https://github.com/vrkansagara/ide)
 
+# TODO
+- [ ] Add support natural scrolling support for the touchapad,mouse
+- [ ] Add notification( i.e. skype,teams message pop up on screen), help on
+  bettery notification
+- [ ] Add sound card(mic and volume) change/select support for the system 
+- [ ] Add dule clock into dmenu.
+- [ ] Add screen lock support
+- [ ] Toggle auto screen brightness 
+- [ ] Add support for xclip with hotkey
+- [ ] Check bettery health using command line.
+- [ ] Show/Hde fan speed or sensor list with it's low/high normal temperature
+
+
 # References
 - Ref:- https://gist.github.com/erlendaakre/12eb90eef84a3ab81f7b531e516c9594
 - https://ratfactor.com/dwm
