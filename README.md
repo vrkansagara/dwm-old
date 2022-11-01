@@ -48,7 +48,7 @@ By default dwm is in tiled layout mode.
 - [Mod]+[f]               - floating mode.
 - [Mod]+[m]               - monocle mode.
 - [Mod]+[c]				- Center master mode.
-- [CTRL}+[Mod]+[c]		- Center floating master mode.
+- [CTRL]+[Mod]+[c]		- Center floating master mode.
 - [Mod]+[g]				- Grid mode.
 
 # Screens
@@ -89,12 +89,15 @@ A tag is simply a label placed on windows. A window may have one or more tags. T
 - [ ] Add notification( i.e. skype,teams message pop up on screen), help on
   bettery notification
 - [ ] Add sound card(mic and volume) change/select support for the system 
-- [ ] Add dule clock into dmenu.
+- [ ] Add dual clock into dmenu.
 - [ ] Add screen lock support
 - [ ] Toggle auto screen brightness 
 - [ ] Add support for xclip with hotkey
-- [ ] Check bettery health using command line.
-- [ ] Show/Hde fan speed or sensor list with it's low/high normal temperature
+- [ ] Check battery health using command line.
+- [ ] Show/Hde fan speed or sensor list with its low/high normal temperature
+- [ ] Implemente Scrot for the screen capture.
+- [ ] Secure ssh agent ( ref. https://rabexc.org/posts/pitfalls-of-ssh-agents)
+- [ ] if power cable attached then change the icon. in dmenu.
 
 
 # References

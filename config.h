@@ -77,41 +77,45 @@ static const Rule rules[] = {
 
     /** class           instance,               title,              tags,               isfloating, isterminal ,noswallow              monitor */
     // Tag - 1 (General usse case)
-    {   "Thunar",      "thunar",      NULL,       1<<0,       0, 0,0,    0},
+    {   "Thunar",      "thunar",      NULL,       1<<0,       0, 0,0,    1},
+    {   "Org.gnome.Nautilus",      "org.gnome.Nautilus",      NULL,       1<<0,       0, 0,0,    1},
+    {   "thunderbird",      "Mail",      NULL,       1<<0,       0, 0,0,    1},
 
     // Tag - 2 (Terminal way on demand )
-    {   "St",      "st",      NULL,       1<<1,       0, 1,0,     0},
+    {   "St",      "st",      NULL,       1<<1,       0, 1,0,     1},
 
-    // Tag - 3 (Socializing)
-    {   "Skype",      "skype",      NULL,       1<<2,       0, 0,0,     0},
-    {   "Microsoft Teams - Preview","microsoft teams - preview",      NULL, 1<<2,       0, 0,0,     0},
+    // Tag - 3 (Socializing / Office on the way)
+    {   "Skype",      "skype",      NULL,       1<<2,       0, 0,0,     1},
+    {   "Microsoft Teams - Preview","microsoft teams - preview",      NULL, 1<<2,       0, 0,0,     1},
+    {   "ringcentral",      "ringcentral",      NULL,       1<<2,       0,  0,0,    1},
+    {   "Slack",      "slack",      NULL,       1<<2,       0,  0,0,    1},
 
-    // Tag - 4 (Office on the way)
-    {   "ringcentral",      "ringcentral",      NULL,       1<<3,       0,  0,0,    0},
+    // Tag - 4 ( Remote things)
+    {   "org.remmina.Remmina" ,"org.remmina.Remmina",       NULL,       1 << 3, 0,  0,0,         1},
+    {   "Anydesk",      "anydesk",      NULL,       1<<3,       0,     0,0, 1},
 
-    // Tag - 5 ( Remote things)
-    {   "org.remmina.Remmina" ,"org.remmina.Remmina",       NULL,       1 << 4, 0,  0,0,         0 },
-    {   "Anydesk",      "anydesk",      NULL,       1<<4,       0,     0,0, 0},
+    // Tag - 5 (Utilities)
+    { "WorkComposer"    ,"workcomposer",       NULL,       1 << 4,       0, 0,0, 1},
+    { "Hubstaff"    ,"Hubstaff",       NULL,       1 << 4,       0,          0,0,  1},
+    { "openfortiGUI"    ,"openfortigui",       NULL,       1 << 4,       0, 0,0,1},
+    { "KeePassXC"    ,"keepassxc",       NULL,       1 << 4,       0,        0,0,   1},
+    { "obs"    ,"obs",       NULL,       1 << 4,       0,           1},
 
-    // Tag - 6 (Utilities)
-    { "WorkComposer"    ,"workcomposer",       NULL,       1 << 5,       0, 0,0, 0 },
-    { "Hubstaff"    ,"Hubstaff",       NULL,       1 << 5,       0,          0,0,  0 },
-    { "openfortiGUI"    ,"openfortigui",       NULL,       1 << 5,       0, 0,0,0 },
-    { "KeePassXC"    ,"keepassxc",       NULL,       1 << 5,       0,        0,0,   1 },
-    { "obs"    ,"obs",       NULL,       1 << 5,       0,           0 },
+    // Tag - 6 (Development : Light weight on memory)
+    {   "vrkansagara-ide",               "vrkansagara-ide",     NULL,       1<<5,   0,  1,  0,  1},
+    {   "Geany",                    "geany",               NULL,       1<<5,       0,           0,0,1},
 
-    // Tag - 7 ( VIM way, Light weight on memory )
-    {   "vrkansagara-ide",               "vrkansagara-ide",      NULL,       1<<6,       0,  1,0,    -1},
+    // Tag - 7 (Development : Medium/Heavy weight on memory)
+    {   "jetbrains-clion",               "jetbrains-clion",     NULL,       1<<6,   0,  0,  0,  1},
 
     // Tag - 8 ( Heavy on memory )
-    {   "jetbrains-phpstorm",       "jetbrains-phpstorm",    NULL,       1<<7,       0,      0,0,0},
-    {   "Postman",                  "postman",                NULL,       1<<7,       0,      0,0,0},
-    {   "code",                     "code",                   NULL,       1 << 7,       0,    0,0,0 },
-    {   "Geany",                    "geany",               NULL,       1 << 7,       0,           0,0,1 },
+    {   "jetbrains-phpstorm",       "jetbrains-phpstorm",    NULL,       1<<7,       0,      0,0,1},
+    {   "Postman",                  "postman",                NULL,       1<<7,       0,      0,0,1},
+    {   "code",                     "code",                   NULL,       1 <<7,       0,    0,0,1},
 
     // Tag - 9 ( Things on WWW )
-    { "Firefox"                 ,"Navigator",               NULL,       1 << 8,       0,           0,0,1 },
-    { "Google-chrome"           ,"google-chrome",          NULL,       1 << 8,       0,      0,0,1 },
+    { "firefox"                 ,"Navigator",               NULL,       1<<8,       0,           0,0,0},
+    { "Google-chrome"           ,"google-chrome",          NULL,       1<<8,       0,      0,0,0},
 };
 
 /* layout(s) */
@@ -143,14 +147,14 @@ static const int lockfullscreen = 1;    /* 1 will force focus on the fullscreen 
 { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 // Grave button = button immediately above the TAB on most keyboards.
-#define STACKKEYS(MOD,ACTION) \
-    { MOD, XK_j,     ACTION##stack, {.i = INC(+1) } }, \
-    { MOD, XK_k,     ACTION##stack, {.i = INC(-1) } }, \
-    { MOD, XK_grave, ACTION##stack, {.i = PREVSEL } },
 // { MOD, XK_q,     ACTION##stack, {.i = 0 } }, \
 // { MOD, XK_a,     ACTION##stack, {.i = 1 } }, \
 // { MOD, XK_z,     ACTION##stack, {.i = 2 } }, \
 // { MOD, XK_x,     ACTION##stack, {.i = -1 } },
+#define STACKKEYS(MOD,ACTION) \
+    { MOD, XK_j,     ACTION##stack, {.i = INC(+1) } }, \
+    { MOD, XK_k,     ACTION##stack, {.i = INC(-1) } }, \
+    { MOD, XK_grave, ACTION##stack, {.i = PREVSEL } },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -209,7 +213,7 @@ static Key keys[] = {
     { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
     { MODKEY,                       XK_Return, zoom,           {0} },
     { MODKEY,                       XK_Tab,    view,           {0} },
-    { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+//    { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 
 
     { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },        /* tile */
@@ -264,8 +268,8 @@ static Key keys[] = {
 
     /* Vallabh @START */
 
-    { MODKEY|Mod1Mask,              XK_s,       spawn,          SHCMD("screenkey &") },
-    { MODKEY|Mod1Mask|ShiftMask,    XK_s,       spawn,          SHCMD("pkill -9 screenkey") },
+    { MODKEY|AltMask,              XK_s,       spawn,          SHCMD("screenkey &") },
+    { MODKEY|AltMask|ShiftMask,    XK_s,       spawn,          SHCMD("pkill -9 screenkey") },
     { MODKEY,                       XK_x,       spawn,          SHCMD("xkill") },
 
     { 0,        XF86XK_MonBrightnessUp,         spawn,          {.v = brightup } },

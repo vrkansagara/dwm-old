@@ -76,8 +76,10 @@ ${SUDO} chmod 744 $HOME/.xinitrc
 ${SUDO} chmod u+s /usr/bin/xinit
 
 # Copy conky configuration to home folder
+${SUDO} rm -rf $HOME/.config/conky
 ${SUDO} cp -R $(pwd)/conky $HOME/.config
-${SUDO} mv $HOME/.config/ranger /tmp
+
+${SUDO} rm -rf $HOME/.config/ranger /tmp
 ${SUDO} cp -R $(pwd)/ranger $HOME/.config
 
 ${SUDO} chown $USER  -Rf $HOME/.config
@@ -91,14 +93,14 @@ ${SUDO} chsh -s $(which zsh) $USER
 # Exec=/usr/lib/notification-daemon/notification-daemon'| ${SUDO} tee /usr/share/dbus-1/services/org.gnome.Notifications.service > /dev/null
 
 # Command line fuzzy finder called fzf
-cd /tmp
-[ ! -d "/tmp/fzf" ] && git clone https://github.com/junegunn/fzf.git --depth=1 -b master
-cd /tmp/fzf
-git stash
-git reset --hard HEAD
-git clean -fd
+if [ ! -d "/tmp/fzf" ]; then
+    git clone https://github.com/junegunn/fzf.git --depth=1 -b master
+    cd fzf
+    git stash
+    git reset --hard HEAD
+    git clean -fd
 
-./install --all
+fi
 
 echo "Your simple window manager is configured and ready to use.........[DONE]."
 

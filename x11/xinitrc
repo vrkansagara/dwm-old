@@ -5,7 +5,7 @@
 WALLPAPERS="$HOME/git/vrkansagara/dwm/images"
 while true; do
   find ${WALLPAPERS} -type f -iname "*.jpg" | shuf -n 1 | xargs feh --bg-fill
-sleep  15m
+    sleep  15m
 done&
 
 # Laptop/Desktop specific start up
@@ -16,23 +16,29 @@ done&
 # st , dwm transperent
 /usr/bin/compton &
 # ~/Hubstaff/HubstaffClient.bin.x86_64 &
+# ~/Applications/workcomposer-linux-installer.AppImage &
+# keepassxc &
+# ringcentral &
+# remmina &
+# anydesk &
+# ~/Applications/Postman/Postman &
+# /usr/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
+#/usr/local/bin/st -c firle-explorer -n firle-explorer -e ranger $HOME/www &
+
+/usr/bin/firefox&
 /usr/local/bin/st &
-~/Applications/workcomposer-linux-installer.AppImage &
-/usr/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
-/usr/local/bin/st -c firle-explorer -n firle-explorer -e ranger $HOME/www &
-keepassxc &
-ringcentral &
-remmina &
-anydesk &
+guake &
 skype &
 teams &
-~/Applications/Postman/Postman &
-/usr/bin/firefox &
+slack &
+phpstorm &
+clion &
+thunderbird &
 
 # DWM top bar using conky
 while true; do
-	(conky | while read LINE; do xsetroot -name "$LINE"; done)
-	sleep 1
+    (conky | while read LINE; do xsetroot -name "$LINE"; done)
+    sleep 1
 done&
 
 #evaluate the SSH agent
