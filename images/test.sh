@@ -21,7 +21,7 @@ fi
 # feh --bg-scale "${img[$RANDOM % ${#img[@]} ]}"
 while true; do
   find ${SCRIPTDIR} -type f -iname "*.jpg" | shuf -n 1 | xargs feh --bg-fill
-# sleep 30m
-sleep  1
+  # sleep 30m
+  sleep  1
 done
 
