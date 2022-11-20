@@ -29,7 +29,7 @@ ${SUDO} apt install --yes --no-install-recommends libxft-dev libxinerama-dev
 # xautolock = monitor binary for x time
 
 # slock = suckless login manger
-${SUDO} apt-get install --yes --no-install-recommends \ 
+${SUDO} apt-get install --yes --no-install-recommends \
     xautolock xdotool compton inxi scrot zsh conky
 
 # Check if compositor is running or not
@@ -95,6 +95,7 @@ ${SUDO} chsh -s $(which zsh) $USER
 
 # Command line fuzzy finder called fzf
 if [ ! -d "/tmp/fzf" ]; then
+    cd /tmp
     git clone https://github.com/junegunn/fzf.git --depth=1 -b master
     cd fzf
     git stash
