@@ -9,8 +9,8 @@ while true; do
 done&
 
 # Laptop/Desktop specific start up
-~/.vim/src/Sh/MacBookAir/FunctionKey.sh
-~/.vim/src/Sh/System/battery.sh &
+$HOME/.vim/src/Sh/MacBookAir/FunctionKey.sh
+$HOME/.vim/src/Sh/System/battery.sh &
 
 ### Start up program(s) ###
 # st , dwm transperent
@@ -24,16 +24,16 @@ done&
 # ~/Applications/Postman/Postman &
 # /usr/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
 #/usr/local/bin/st -c firle-explorer -n firle-explorer -e ranger $HOME/www &
+# skype &
+# thunderbird &
+# clion &
+# phpstorm &
 
-/usr/bin/firefox&
+/usr/bin/firefox &
 /usr/local/bin/st &
 guake &
-skype &
 teams &
 slack &
-phpstorm &
-clion &
-thunderbird &
 
 # DWM top bar using conky
 while true; do
@@ -53,7 +53,7 @@ xautolock -time 2 -locker slock &
 
 # zsh/demnu clean cache
 mkdir -p $HOME/old
-mv .bash* .profile $HOME/old
+mv .bash* $HOME/old
 mv $HOME/.cache/dmenu_run $HOME/old
 mv .zcompdump-* $HOME/old
 
@@ -61,5 +61,5 @@ mv .zcompdump-* $HOME/old
 # Log stderror to a file
 # Insted of quiting dwm , make it hot reload(Will not disturbe your stream while hot reload)
 while true; do
-	/usr/local/bin/dwm 2>> /tmp/dwm.log
+	/usr/local/bin/dwm 2>> $HOME/dwm.log
 done

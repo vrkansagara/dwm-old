@@ -30,7 +30,7 @@ ${SUDO} apt install --yes --no-install-recommends libxft-dev libxinerama-dev
 
 # slock = suckless login manger
 ${SUDO} apt-get install --yes --no-install-recommends \
-    xautolock xdotool compton inxi scrot zsh conky
+    xautolock xdotool compton inxi scrot zsh conky feh screenkey
 
 # Check if compositor is running or not
 # inxi -Gxx | grep compositor
