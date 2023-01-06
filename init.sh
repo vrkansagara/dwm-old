@@ -1,7 +1,6 @@
 # set -e # This setting is telling the script to exit on a command error.
 # set -x # You refer to a noisy script.(Used to debugging)
 
-echo " "
 export DEBIAN_FRONTEND=noninteractive
 CURRENT_DATE=$(date "+%Y%m%d%H%M%S")
 SCRIPT=$(readlink -f "$0")
@@ -19,7 +18,8 @@ fi
 # ${SUDO} sudo apt-get install --yes -q  --no-install-recommends patch build-essential libx11-dev feh conky cputool pulseaudio libxft-dev thunar x11proto-core-dev libharfbuzz-dev libxinerama-dev libxinerama1 xhk screenkey htop alsa-utils network-manager zsh firefox-esr lshw linux-headers-$(uname -r) linux-image-$(uname -r) linux-headers-generic inxi mesa-utils hddtemp net-tools ipmitool freeipmi-tools ipvsadm lvm2 mdadm lm-sensors smartmontools tree lsb-release  libio-socket-ssl-perl libcpanel-json-xs-perl  libjson-xs-perl  libxml-dumper-perl wmctrl linux-image-$(uname -r|sed 's,[^-]*-[^-]*-,,') linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms hardinfo vlc cheese cpulimit notification-daemon libnotify-bin notify-osd libnotify-dev at-spi2-core
 # ${SUDO} apt install --yes --no-install-recommends xorg git nmap elinks htop nmap vim x11proto-core-dev libxft-dev libharfbuzz-dev xhk libx11-dev libxinerama-dev libxinerama1 thunar feh conky cputool conky gimp sudo keepassxc thunar alsa-utils alsa-tools firmware-linux-nonfree arandr pavucontrol iputils-ping net-tools lsof nmap whois network-manager
 
-${SUDO} apt install --yes --no-install-recommends libxft-dev libxinerama-dev
+${SUDO} apt install --yes --no-install-recommends \
+libxft-dev libxinerama-dev arandr suckless-tools
 # pulseaudio --start --log-target=syslogk
 
 # scrot = screen capture tool
@@ -38,7 +38,8 @@ ${SUDO} apt-get install --yes --no-install-recommends \
 # xautolock -time 1 -locker slock
 # ${SUDO} cp -R hooks .git/
 
-${SUDO} apt-get install --yes --no-install-recommends xcb libxcb-xkb-dev \
+${SUDO} apt-get install --yes --no-install-recommends \
+    xcb libxcb-xkb-dev \
     x11-xkb-utils libx11-xcb-dev \
     libxkbcommon-x11-dev libxcb-res0-dev \
     ranger
@@ -95,10 +96,10 @@ ${SUDO} chsh -s $(which zsh) $USER
 
 # Command line fuzzy finder called fzf
 if [ ! -d "$HOME/.fzf" ]; then
-    cd /tmp
-    git clone https://github.com/junegunn/fzf.git --depth=1 -b master
-    cd fzf
-    git stash
+    cd $HOME
+    git clone https://github.com/junegunn/fzf.git --depth=1 -b master .fzf
+    cd .fzf
+    ${SUDO} git stash
     git reset --hard HEAD
     git clean -fd
 fi

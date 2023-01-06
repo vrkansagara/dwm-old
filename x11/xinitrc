@@ -5,7 +5,7 @@
 WALLPAPERS="$HOME/git/vrkansagara/dwm/images"
 while true; do
   find ${WALLPAPERS} -type f -iname "*.jpg" | shuf -n 1 | xargs feh --bg-fill
-    sleep  15m
+    sleep  5m
 done&
 
 # Laptop/Desktop specific start up
@@ -53,6 +53,7 @@ xautolock -time 2 -locker slock &
 
 # zsh/demnu clean cache
 mkdir -p $HOME/old
+mkdir -p $HOME/tmp
 mv .bash* $HOME/old
 mv $HOME/.cache/dmenu_run $HOME/old
 mv .zcompdump-* $HOME/old
@@ -61,5 +62,5 @@ mv .zcompdump-* $HOME/old
 # Log stderror to a file
 # Insted of quiting dwm , make it hot reload(Will not disturbe your stream while hot reload)
 while true; do
-	/usr/local/bin/dwm 2>> $HOME/dwm.log
+	/usr/local/bin/dwm 2>> $HOME/tmp/dwm.log
 done
