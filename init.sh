@@ -4,7 +4,7 @@
 echo " "
 export DEBIAN_FRONTEND=noninteractive
 CURRENT_DATE=$(date "+%Y%m%d%H%M%S")
-SCRIPT=$(readlink -f "")
+SCRIPT=$(readlink -f "$0")
 SCRIPTDIR=$(dirname "$SCRIPT")
 
 if [ "$(whoami)" != "root" ]; then
@@ -94,14 +94,13 @@ ${SUDO} chsh -s $(which zsh) $USER
 # Exec=/usr/lib/notification-daemon/notification-daemon'| ${SUDO} tee /usr/share/dbus-1/services/org.gnome.Notifications.service > /dev/null
 
 # Command line fuzzy finder called fzf
-if [ ! -d "/tmp/fzf" ]; then
+if [ ! -d "$HOME/.fzf" ]; then
     cd /tmp
     git clone https://github.com/junegunn/fzf.git --depth=1 -b master
     cd fzf
     git stash
     git reset --hard HEAD
     git clean -fd
-
 fi
 
 echo "Your simple window manager is configured and ready to use.........[DONE]."
