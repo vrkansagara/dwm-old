@@ -1,6 +1,8 @@
 # Make sure this is before the 'exec' command or it won't be sourced.
 [ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
 
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 # set baground
 WALLPAPERS="$HOME/git/vrkansagara/dwm/images"
 while true; do
@@ -62,5 +64,5 @@ mv .zcompdump-* $HOME/old
 # Log stderror to a file
 # Insted of quiting dwm , make it hot reload(Will not disturbe your stream while hot reload)
 while true; do
-	/usr/local/bin/dwm 2>> $HOME/tmp/dwm.log
+	/usr/local/bin/dwm 2>&1 >> $HOME/tmp/dwm.log
 done
