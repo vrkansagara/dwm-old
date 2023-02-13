@@ -71,10 +71,10 @@ ${SUDO} make install
 ${SUDO} make clean
 
 ${SUDO} rm -rf /usr/share/xsessions/vallabh.desktop
-${SUDO} ln -s $(pwd)/dwm.desktop /usr/share/xsessions/vallabh.desktop
+${SUDO} ln -P $(pwd)/dwm.desktop /usr/share/xsessions/vallabh.desktop
 ${SUDO} rm -rf $HOME/.xinitrc $HOME/.xprofile
-${SUDO} ln -s $(pwd)/x11/xinitrc $HOME/.xinitrc
-${SUDO} ln -s $(pwd)/x11/xprofile $HOME/.xprofile
+${SUDO} ln -P $(pwd)/x11/xinitrc $HOME/.xinitrc
+${SUDO} ln -P $(pwd)/x11/xprofile $HOME/.xprofile
 ${SUDO} chmod 744 $HOME/.xinitrc
 ${SUDO} chmod u+s /usr/bin/xinit
 

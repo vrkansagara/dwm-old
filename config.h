@@ -227,8 +227,6 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_g,      setlayout,      {.v = &layouts[6]} },        /* bstack (TTT) */
     { MODKEY|ShiftMask|ControlMask, XK_g,      setlayout,      {.v = &layouts[7]} },        /* bstackhoriz(===)*/
 
-    { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[8]} },        /* bstackhoriz */
-
     { MODKEY,                       XK_space,  setlayout,      {0} },
     { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
     { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
