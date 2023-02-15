@@ -30,7 +30,7 @@ static const char *fonts[]          = {
     "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true"
 };
 static int topbar                   = 1;        /* 0 means bottom bar */
-static const char dmenufont[]       = {};
+static const char dmenufont[]       = {
     "monospace:size=10",
     "Fira Code Medium:size=12:antialias=true:autohint=true",
     "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true",
