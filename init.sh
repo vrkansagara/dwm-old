@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
-set -eou pipefail
+# set -eou pipefail
+#set -e # This setting is telling the script to exit on a command error.
+if [[ "$1" == "-v" ]]; then
+ set -x # You refer to a noisy script.(Used to debugging)
+fi
 
 export DEBIAN_FRONTEND=noninteractive
 CURRENT_DATE=$(date "+%Y%m%d%H%M%S")
-SCRIPT=$(readlink -f "$0")
-SCRIPTDIR=$(dirname "$SCRIPT")
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 if [ "$(whoami)" != "root" ]; then
-  SUDO=sudo
+    SUDO=sudo
 fi
 
 # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -43,26 +46,45 @@ fi
 # ${SUDO} cp -R hooks .git/
 
 ${SUDO} apt-get install --yes --no-install-recommends \
-  xcb libxcb-xkb-dev \
-  x11-xkb-utils libx11-xcb-dev \
-  libxkbcommon-x11-dev libxcb-res0-dev
+    xcb libxcb-xkb-dev \
+    x11-xkb-utils libx11-xcb-dev \
+    libxkbcommon-x11-dev libxcb-res0-dev
 
 # Ranger dependencies
 #${SUDO} pip install pdftotext
-
-FILES="patches/*.diff"
-for f in $FILES; do
-  if [ -f "$f" ]; then
-    echo "Applying path for the [ $f ]"
-    dos2unix $f
-    patch --merge=diff3 -i $f
-    sleep 1
-  fi
-done
+cd $SCRIPT_DIR
 
 # Give current user permission to work with source
 ${SUDO} chown $USER -Rf .
 ${SUDO} chgrp $USER -Rf .
+
+FILES="patches/*.diff"
+for f in $FILES; do
+    if [ -f "$f" ]; then
+        echo "Applying path for the [ $f ]"
+        dos2unix $f
+        patch --merge=diff3 -i $f
+        sleep 1
+    fi
+done
+
+# Lets do stuff for the dwmblock first
+cd $(pwd)/vendor/dwmblocks
+cp $SCRIPT_DIR/dwmblocks/blocks.h $SCRIPT_DIR/vendor/dwmblocks
+git submodule update --init --recursive --jobs 4  --remote --rebase
+make clean
+make
+make
+
+#Lets kill all process which is executed for the dwmblocks
+ps -ef | grep "dwmblocks" | grep -v grep | awk "{print \$2}" | xargs --no-run-if-empty sudo kill 9
+# reset statusbar
+xsetroot -name ""
+${SUDO} rm -rf /usr/local/bin/dwmblocks
+${SUDO} make install
+/usr/local/bin/dwmblocks&
+
+cd $SCRIPT_DIR
 
 make clean
 make
@@ -97,12 +119,12 @@ ${SUDO} chsh -s $(which zsh) $USER
 
 # Command line fuzzy finder called fzf
 if [ ! -d "$HOME/.fzf" ]; then
-  cd $HOME
-  git clone https://github.com/junegunn/fzf.git --depth=1 -b master .fzf
-  cd .fzf
-  ${SUDO} git stash
-  git reset --hard HEAD
-  git clean -fd
+    cd $HOME
+    git clone https://github.com/junegunn/fzf.git --depth=1 -b master .fzf
+    cd .fzf
+    ${SUDO} git stash
+    git reset --hard HEAD
+    git clean -fd
 fi
 
 echo "Your simple window manager is configured and ready to use.........[DONE]."

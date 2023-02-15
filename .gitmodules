@@ -1,0 +1,3 @@
+[submodule "vendor/dwmblocks"]
+	path = vendor/dwmblocks
+	url = https://github.com/torrinfail/dwmblocks

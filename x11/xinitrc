@@ -57,10 +57,11 @@ nice -n 5 /snap/bin/phpstorm
 nice -n 10 /usr/bin/firefox
 
 # DWM top bar using conky
-while true; do
-    (conky | while read LINE; do xsetroot -name "$LINE"; done)
-    sleep 1
-done&
+# while true; do
+#     (conky | while read LINE; do xsetroot -name "$LINE"; done)
+#     sleep 1
+# done&
+# /usr/local/bin/dwmblocks &
 
 #evaluate the SSH agent
 export GPGKEY=8BA6E7ABD8112B3E
@@ -83,5 +84,9 @@ mv .zcompdump-* $HOME/old
 # Log stderror to a file
 # Insted of quiting dwm , make it hot reload(Will not disturbe your stream while hot reload)
 while true; do
-	/usr/local/bin/dwm 2>&1 >> $HOME/tmp/dwm.log
+    /usr/local/bin/dwm 2>&1 >> $HOME/tmp/dwm.log
+    # Log stderror to a file
+    # dwm 2> ~/.dwm.log
+    # No error logging
+    ##dwm >/dev/null 2>&1
 done
