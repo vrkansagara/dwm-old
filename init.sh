@@ -56,14 +56,15 @@ apply_permission
 
 #git submodule update --init --recursive --jobs 4  --remote --rebase
 
-# DWMBlock Specific
-cd $ST_DIR
-apply_git_clean
-cp -R $SCRIPT_DIR/st/* $ST_DIR
-${SUDO} make clean
-${SUDO} make
-${SUDO} make uninstall
-${SUDO} make install
+## DWMBlock Specific
+#cd $ST_DIR
+#apply_git_clean
+#cp -R $SCRIPT_DIR/st/* $ST_DIR
+#apply_patche
+#${SUDO} make clean
+#${SUDO} make
+#${SUDO} make uninstall
+#${SUDO} make install
 
 # DWM Specific
 cd $DWM_DIR
@@ -74,32 +75,32 @@ ${SUDO} make
 ${SUDO} make uninstall
 ${SUDO} make install
 
-# DWMBlock Specific
-cd $DWMBLOCKS_DIR
-apply_git_clean
-cp -R $SCRIPT_DIR/dwmblocks/* $DWMBLOCKS_DIR
-${SUDO} make clean
-${SUDO} make
-${SUDO} make uninstall
-${SUDO} make install
+## DWMBlock Specific
+#cd $DWMBLOCKS_DIR
+#apply_git_clean
+#cp -R $SCRIPT_DIR/dwmblocks/* $DWMBLOCKS_DIR
+#${SUDO} make clean
+#${SUDO} make
+#${SUDO} make uninstall
+#${SUDO} make install
 
-# SLOCK Specific
-cd $SLOCK_DIR
-apply_git_clean
-cp -R $SCRIPT_DIR/slock/* $SLOCK_DIR
-${SUDO} make clean
-${SUDO} make
-${SUDO} make uninstall
-${SUDO} make install
+## SLOCK Specific
+#cd $SLOCK_DIR
+#apply_git_clean
+#cp -R $SCRIPT_DIR/slock/* $SLOCK_DIR
+#${SUDO} make clean
+#${SUDO} make
+#${SUDO} make uninstall
+#${SUDO} make install
 
-# SCROLL_DIR Specific
-cd $SCROLL_DIR
-apply_git_clean
-cp -R $SCRIPT_DIR/slock/* $SCROLL_DIR
-${SUDO} make clean
-${SUDO} make
-${SUDO} make uninstall
-${SUDO} make install
+## SCROLL_DIR Specific
+#cd $SCROLL_DIR
+#apply_git_clean
+#cp -R $SCRIPT_DIR/slock/* $SCROLL_DIR
+#${SUDO} make clean
+#${SUDO} make
+#${SUDO} make uninstall
+#${SUDO} make install
 
 
 echo "$GREEN Your simple window manager is configured and ready to use.........[DONE]. $NC"
