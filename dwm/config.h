@@ -37,7 +37,16 @@ static const Rule rules[] = {
      */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+
+    // Tag - 8 ( Heavy on memory )
+    {   "jetbrains-phpstorm",       "jetbrains-phpstorm",    NULL,       1<<7,       0,      1},
+    {   "Postman",                  "postman",                NULL,       1<<7,       0,     1},
+    {   "code",                     "code",                   NULL,       1 <<7,       0,    1},
+
+    // Tag - 9 ( Things on WWW )
+	{ "firefox",        "Navigator",       NULL,       1 << 8,       0,           0},
+	{ "Google-chrome",  "google-chrome",   NULL,       1 << 8,       0,           0},
+
 };
 
 /* layout(s) */
