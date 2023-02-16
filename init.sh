@@ -33,9 +33,11 @@ apply_patche(){
   FILES="$(pwd)/patches/*.diff"
   for f in $FILES; do
       if [ -f "$f" ]; then
-          echo "Applying path for the [ $f ]"
           dos2unix $f
+          echo "$RED Applying path for the [ $f ] $NC"
           patch --merge=diff3 -i $f
+          retCode=$$?; \
+          [[ $$retCode -gt 1 ]] && exit $$retCode; \
           sleep 1
       fi
   done
@@ -70,6 +72,7 @@ apply_permission
 cd $DWM_DIR
 apply_git_clean
 cp -R $SCRIPT_DIR/dwm/* $DWM_DIR
+apply_patche
 ${SUDO} make clean
 ${SUDO} make
 ${SUDO} make uninstall
