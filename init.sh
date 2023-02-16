@@ -11,6 +11,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 DWM_DIR="$SCRIPT_DIR/vendor/dwm"
 DWMBLOCKS_DIR="$SCRIPT_DIR/vendor/dwmblocks"
 ST_DIR="$SCRIPT_DIR/vendor/st"
+SLOCK_DIR="$SCRIPT_DIR/vendor/slock"
 
 if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
@@ -80,6 +81,16 @@ ${SUDO} make clean
 ${SUDO} make
 ${SUDO} make uninstall
 ${SUDO} make install
+
+# DWMBlock Specific
+cd $SLOCK_DIR
+apply_git_clean
+cp -R $SCRIPT_DIR/slock/* $SLOCK_DIR
+${SUDO} make clean
+${SUDO} make
+${SUDO} make uninstall
+${SUDO} make install
+
 
 echo "$GREEN Your simple window manager is configured and ready to use.........[DONE]. $NC"
 exit 0

@@ -10,3 +10,6 @@
 [submodule "vendor/dmenu"]
 	path = vendor/dmenu
 	url = git://git.suckless.org/dmenu
+[submodule "vendor/slock"]
+	path = vendor/slock
+	url = git://git.suckless.org/slock
