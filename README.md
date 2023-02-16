@@ -99,6 +99,17 @@ A tag is simply a label placed on windows. A window may have one or more tags. T
 - [ ] Secure ssh agent ( ref. https://rabexc.org/posts/pitfalls-of-ssh-agents)
 - [ ] if power cable attached then change the icon. in dmenu.
 
+# Glossary of code
+Button1 = Left Mouse Click
+Button2 = Middle Mouse Click
+Button3 = Right Mouse Click
+
+ClkTagBar = TagBar(1..9)
+ClkClientWin = Work with Window
+ClkLtSymbol = 
+ClkStatusText = 
+ClkWinTitle = 
+ClkClientWin || ClkRootWin = 
 
 # References
 - Ref:- https://gist.github.com/erlendaakre/12eb90eef84a3ab81f7b531e516c9594
