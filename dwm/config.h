@@ -44,6 +44,17 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
+/* Mask        | Value | Key */
+/* ------------+-------+------------ */
+/* ShiftMask   |     1 | Shift */
+/* ControlMask |     4 | Ctrl */
+/* Mod4Mask    |    64 | Windows */
+/* Mod1Mask    |     8 | Alt */
+/* LockMask    |     2 | Caps Lock */
+/* Mod2Mask    |    16 | Num Lock */
+/* Mod3Mask    |    32 | Scroll Lock */
+/* Mod5Mask    |   128 | ??? */
+
 /* key definitions */
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
