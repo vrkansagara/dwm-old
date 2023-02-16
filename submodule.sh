@@ -7,4 +7,5 @@ git submodule add -f git://git.suckless.org/dwm vendor/dwm
 git submodule add -f git://git.suckless.org/dmenu vendor/dmenu
 git submodule add -f git://git.suckless.org/st vendor/st
 git submodule add -f git://git.suckless.org/slock vendor/slock
+git submodule add -f git://git.suckless.org/scroll vendor/scroll
 git submodule update --init --recursive --jobs 4  --remote --rebase

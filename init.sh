@@ -12,6 +12,7 @@ DWM_DIR="$SCRIPT_DIR/vendor/dwm"
 DWMBLOCKS_DIR="$SCRIPT_DIR/vendor/dwmblocks"
 ST_DIR="$SCRIPT_DIR/vendor/st"
 SLOCK_DIR="$SCRIPT_DIR/vendor/slock"
+SCROLL_DIR="$SCRIPT_DIR/vendor/scroll"
 
 if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
@@ -82,10 +83,19 @@ ${SUDO} make
 ${SUDO} make uninstall
 ${SUDO} make install
 
-# DWMBlock Specific
+# SLOCK Specific
 cd $SLOCK_DIR
 apply_git_clean
 cp -R $SCRIPT_DIR/slock/* $SLOCK_DIR
+${SUDO} make clean
+${SUDO} make
+${SUDO} make uninstall
+${SUDO} make install
+
+# SCROLL_DIR Specific
+cd $SCROLL_DIR
+apply_git_clean
+cp -R $SCRIPT_DIR/slock/* $SCROLL_DIR
 ${SUDO} make clean
 ${SUDO} make
 ${SUDO} make uninstall
