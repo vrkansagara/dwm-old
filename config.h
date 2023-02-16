@@ -276,7 +276,7 @@ static Key keys[] = {
 
     { MODKEY|AltMask,              XK_s,       spawn,          SHCMD("screenkey &") },
     { MODKEY|AltMask|ShiftMask,    XK_s,       spawn,          SHCMD("pkill -9 screenkey") },
-    { MODKEY,                       XK_x,       spawn,          SHCMD("xkill") },
+    { MODKEY,                      XK_x,       spawn,          SHCMD("xkill") },
 
     { 0,        XF86XK_MonBrightnessUp,         spawn,          {.v = brightup } },
     { 0,        XF86XK_MonBrightnessDown,       spawn,          {.v = brightdown } },
@@ -286,10 +286,10 @@ static Key keys[] = {
     { 0,        XF86XK_Calculator,              spawn,          SHCMD(TERMINAL " -c calculator -n calculator -e bc -l") },
 
     /* start editor*/
-    { MODKEY|ControlMask,           XK_Return, spawn,          SHCMD(TERMINAL " -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME") },
-    { MODKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -c htop -n htop -e htop -u $USER -d 60") },
-    { MODKEY,                       XK_e,      spawn,          SHCMD(TERMINAL " -c ranger -n ranger -e ranger") },
-    { MODKEY|ShiftMask,             XK_w,       spawn,         SHCMD(TERMINAL " -c nmtui -n nmtui -e sudo nmtui") },
+    { MODKEY|ControlMask,           XK_Return, spawn,         SHCMD(TERMINAL " -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME") },
+    { MODKEY,                       XK_r,      spawn,         SHCMD(TERMINAL " -c htop -n htop -e htop -u $USER -d 60") },
+    { MODKEY,                       XK_e,      spawn,         SHCMD(TERMINAL " -c ranger -n ranger -e ranger") },
+    { MODKEY|ShiftMask,             XK_w,      spawn,         SHCMD(TERMINAL " -c nmtui -n nmtui -e sudo nmtui") },
 
     /* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
     /* close all session of current $USER , use startx */
@@ -306,6 +306,7 @@ static Button buttons[] = {
     { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
     { ClkWinTitle,          0,              Button2,        zoom,           {0} },
     { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD(TERMINAL " -e vim ~/git/vrkansagara/dwm/dwmblocks/blocks.h") },
     { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
     { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
     { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
