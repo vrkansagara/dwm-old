@@ -45,6 +45,22 @@ fi
 # xautolock -time 1 -locker slock
 # ${SUDO} cp -R hooks .git/
 
+apply_permission(){
+  # Give current user permission to work with source
+  ${SUDO} chown $USER -Rf .
+  ${SUDO} chgrp $USER -Rf .
+}
+apply_patche(){
+  FILES="$(pwd)/patches/*.diff"
+  for f in $FILES; do
+      if [ -f "$f" ]; then
+          echo "Applying path for the [ $f ]"
+          dos2unix $f
+          patch --merge=diff3 -i $f
+          sleep 1
+      fi
+  done
+}
 ${SUDO} apt-get install --yes --no-install-recommends \
     xcb libxcb-xkb-dev \
     x11-xkb-utils libx11-xcb-dev \
@@ -53,25 +69,17 @@ ${SUDO} apt-get install --yes --no-install-recommends \
 # Ranger dependencies
 #${SUDO} pip install pdftotext
 cd $SCRIPT_DIR
-
-# Give current user permission to work with source
-${SUDO} chown $USER -Rf .
-${SUDO} chgrp $USER -Rf .
-
-FILES="patches/*.diff"
-for f in $FILES; do
-    if [ -f "$f" ]; then
-        echo "Applying path for the [ $f ]"
-        dos2unix $f
-        patch --merge=diff3 -i $f
-        sleep 1
-    fi
-done
+apply_permission
+apply_patche
 
 # Lets do stuff for the dwmblock first
 cd $(pwd)/vendor/dwmblocks
-cp $SCRIPT_DIR/dwmblocks/blocks.h $SCRIPT_DIR/vendor/dwmblocks
-git submodule update --init --recursive --jobs 4  --remote --rebase
+${SUDO} git reset --hard HEAD
+${SUDO} git clean -fd
+apply_permission
+# git submodule update --init --recursive --jobs 4  --remote --rebase
+cp -R $SCRIPT_DIR/dwmblocks/* $SCRIPT_DIR/vendor/dwmblocks
+apply_patche
 make clean
 make
 make
