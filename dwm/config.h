@@ -65,7 +65,10 @@ static const Layout layouts[] = {
 /* Mod5Mask    |   128 | ??? */
 
 /* key definitions */
-#define MODKEY Mod1Mask
+// #define MODKEY Mod1Mask // Alt key for meta (Default as per DWM)
+#define AltMask Mod1Mask  // Alt key for meta
+#define MODKEY Mod4Mask // Window key for meta
+
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
