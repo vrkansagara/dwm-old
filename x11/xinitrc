@@ -61,7 +61,7 @@ nice -n 10 /usr/bin/firefox
 #     (conky | while read LINE; do xsetroot -name "$LINE"; done)
 #     sleep 1
 # done&
-dwmblocks &
+/usr/local/bin/dwmblocks&
 
 #evaluate the SSH agent
 export GPGKEY=8BA6E7ABD8112B3E
