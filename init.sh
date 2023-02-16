@@ -78,14 +78,19 @@ ${SUDO} make
 ${SUDO} make uninstall
 ${SUDO} make install
 
-## DWMBlock Specific
-#cd $DWMBLOCKS_DIR
-#apply_git_clean
-#cp -R $SCRIPT_DIR/dwmblocks/* $DWMBLOCKS_DIR
-#${SUDO} make clean
-#${SUDO} make
-#${SUDO} make uninstall
-#${SUDO} make install
+# DWMBlock Specific
+cd $DWMBLOCKS_DIR
+apply_git_clean
+cp -R $SCRIPT_DIR/dwmblocks/* $DWMBLOCKS_DIR
+${SUDO} make clean
+${SUDO} make
+${SUDO} make uninstall
+${SUDO} make install
+#Lets kill all process which is executed for the dwmblocks
+ps -ef | grep "dwmblocks" | grep -v grep | awk "{print \$2}" | xargs --no-run-if-empty sudo kill 9
+# reset statusbar
+xsetroot -name ""
+/usr/local/bin/dwmblocks&
 
 ## SLOCK Specific
 #cd $SLOCK_DIR

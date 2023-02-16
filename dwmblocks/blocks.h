@@ -4,6 +4,7 @@ static const Block blocks[] = {
     {"Mem:", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g", 30,     0},
     {"IST:", "TZ=':Asia/Kolkata' date +'%a %d %b[%r]'",                 1,      0},
     {"CET:", "TZ=':Europe/Amsterdam' date +'%a %d %b[%r]'",             1,      0},
+    {"Power:", "acpi -b | grep -P -o '[0-9]+(?=%)'",                    60,      0},
 //    {""," brightness up 10000",1,0},
 //    {""," brightness down 10000",1,0},
 //    {"","memory-vk",10,14},
