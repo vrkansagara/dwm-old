@@ -52,23 +52,34 @@ apply_permission
 #  Note       :- DWM Window manager
 # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+#git submodule update --init --recursive --jobs 4  --remote --rebase
+
 # DWMBlock Specific
 cd $ST_DIR
 apply_git_clean
-make clean
-make
+cp -R $SCRIPT_DIR/st/* $ST_DIR
+${SUDO} make clean
+${SUDO} make
+${SUDO} make uninstall
+${SUDO} make install
 
 # DWM Specific
 cd $DWM_DIR
 apply_git_clean
-make clean
-make
+cp -R $SCRIPT_DIR/dwm/* $DWM_DIR
+${SUDO} make clean
+${SUDO} make
+${SUDO} make uninstall
+${SUDO} make install
 
 # DWMBlock Specific
 cd $DWMBLOCKS_DIR
 apply_git_clean
-make clean
-make
+cp -R $SCRIPT_DIR/dwmblocks/* $DWMBLOCKS_DIR
+${SUDO} make clean
+${SUDO} make
+${SUDO} make uninstall
+${SUDO} make install
 
 echo "$GREEN Your simple window manager is configured and ready to use.........[DONE]. $NC"
 exit 0
