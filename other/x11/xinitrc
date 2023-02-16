@@ -36,8 +36,8 @@ cpulimit -b -l $((10 * $NUM_CPU_CORES)) -- compton
 # ringcentral &
 # remmina &
 # anydesk &
-/usr/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
-/usr/local/bin/st -c firle-explorer -n firle-explorer -e ranger $HOME/www &
+# /usr/local/bin/st -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME/www &
+# /usr/local/bin/st -c firle-explorer -n firle-explorer -e ranger $HOME/www &
 # skype &
 # thunderbird &
 # clion &
