@@ -1,4 +1,11 @@
-        /* See LICENSE file for copyright and license details. */
+/* Constants */
+// grep $USER /etc/passwd /** Is current user has default shell */
+// chsh -s $(which zsh) /** Change default shell if not */
+// grep zsh /etc/shells /** Is valid login shell *?
+// TERMINAL_PATH will not be in effect once user has pre-defined shell.
+#define TERMINAL "st"
+#define TERMINAL_PATH "/bin/zsh"
+#define EDITOR "vim"
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
