@@ -118,6 +118,16 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+    /* Vallabh @START */
+
+	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
+    /* close all session of current $USER , use startx */
+    { MODKEY|ShiftMask|ControlMask, XK_q,      spawn,          SHCMD(TERMINAL " pkill -u $USER -9")},
+    { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+
+    /* Vallabh @END */
 };
 
 /* button definitions */
