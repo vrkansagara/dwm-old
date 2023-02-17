@@ -23,6 +23,9 @@ RED=$'\e[0;31m'
 NC=$'\e[0m'
 echo "$GREEN Script running in this directory [$SCRIPT_DIR]  $NC"
 
+git submodule foreach git reset --hard HEAD
+git submodule foreach git clean -fd
+
 apply_permission() {
   echo "$RED Current directory is [$(pwd)]  $NC"
   # Give current user permission to work with source
