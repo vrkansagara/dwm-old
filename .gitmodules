@@ -4,12 +4,12 @@
 [submodule "vendor/dwm"]
 	path = vendor/dwm
 	url = git://git.suckless.org/dwm
-[submodule "vendor/st"]
-	path = vendor/st
-	url = git://git.suckless.org/st
 [submodule "vendor/dmenu"]
 	path = vendor/dmenu
 	url = git://git.suckless.org/dmenu
+[submodule "vendor/st"]
+	path = vendor/st
+	url = git://git.suckless.org/st
 [submodule "vendor/slock"]
 	path = vendor/slock
 	url = git://git.suckless.org/slock
