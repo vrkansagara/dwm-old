@@ -46,8 +46,8 @@ apply_patche(){
   done
 }
 apply_git_clean(){
-  ${SUDO} git reset --hard HEAD
-  ${SUDO} git clean -fd
+#  ${SUDO} git reset --hard HEAD
+#  ${SUDO} git clean -fd
   apply_permission
 #  git checkout master
 }
