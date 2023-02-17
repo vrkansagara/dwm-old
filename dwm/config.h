@@ -131,8 +131,8 @@ static const Key keys[] = {
     /* Vallabh @START */
 
     // Patche(s) custom key(s)
-//    { MODKEY,                       XK_f,      togglefullscr,  {0} }, // Fullscreen window
-//    { MODKEY,                       XK_s,      togglesticky,   {0} }, // Stiky window
+    { MODKEY,                       XK_f,      togglefullscr,  {0} }, // Fullscreen window
+    { MODKEY,                       XK_s,      togglesticky,   {0} }, // Stiky window
 
 	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
     /* close all session of current $USER , use startx */
