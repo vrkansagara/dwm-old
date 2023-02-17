@@ -88,7 +88,7 @@ ${SUDO} make
 ${SUDO} make uninstall
 ${SUDO} make install
 #Lets kill all process which is executed for the dwmblocks
-ps -ef | grep "dwmblocks" | grep -v grep | awk "{print \$2}" | xargs --no-run-if-empty sudo kill 9
+ps -ef | grep "dwmblocks" | grep -v grep | awk "{print \$2}" | xargs --no-run-if-empty sudo kill -9
 # reset statusbar
 xsetroot -name ""
 /usr/local/bin/dwmblocks&
