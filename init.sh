@@ -8,7 +8,8 @@ fi
 export DEBIAN_FRONTEND=noninteractive
 CURRENT_DATE=$(date "+%Y%m%d%H%M%S")
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-DWM_DIR="$SCRIPT_DIR/vendor/dwm"
+
+DWM_DIR="$SCRIPT_DIR/dwm"
 DWMBLOCKS_DIR="$SCRIPT_DIR/vendor/dwmblocks"
 ST_DIR="$SCRIPT_DIR/vendor/st"
 SLOCK_DIR="$SCRIPT_DIR/vendor/slock"
@@ -22,9 +23,6 @@ GREEN=$'\e[0;32m'
 RED=$'\e[0;31m'
 NC=$'\e[0m'
 echo "$GREEN Script running in this directory [$SCRIPT_DIR]  $NC"
-
-#git submodule foreach git reset --hard HEAD
-#git submodule foreach git clean -fd
 
 apply_permission() {
   echo "$RED Current directory is [$(pwd)]  $NC"
@@ -74,7 +72,7 @@ apply_permission
 # DWM Specific
 cd $DWM_DIR
 apply_git_clean
-cp -R $SCRIPT_DIR/dwm/* $DWM_DIR
+#cp -R $SCRIPT_DIR/dwm/* $DWM_DIR
 apply_patche
 ${SUDO} make clean
 ${SUDO} make

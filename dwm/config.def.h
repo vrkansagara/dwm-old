@@ -1,11 +1,4 @@
-/* Constants */
-// grep $USER /etc/passwd /** Is current user has default shell */
-// chsh -s $(which zsh) /** Change default shell if not */
-// grep zsh /etc/shells /** Is valid login shell *?
-// TERMINAL_PATH will not be in effect once user has pre-defined shell.
-#define TERMINAL "st"
-#define TERMINAL_PATH "/bin/zsh"
-#define EDITOR "vim"
+/* See LICENSE file for copyright and license details. */
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -29,24 +22,13 @@ static const char *colors[][3]      = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-    /* xprop(1):
-     *  WM_CLASS(STRING) = instance, class
-     *  WM_NAME(STRING) = title
-     *  xprop | awk ' /^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
-     *  xprop -root -notype -f WM_NAME "8u"  |  sed -n -r 's/WM_NAME = \"(.*)\"/\1/p'
-     */
+	/* xprop(1):
+	 *	WM_CLASS(STRING) = instance, class
+	 *	WM_NAME(STRING) = title
+	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-
-    // Tag - 8 ( Heavy on memory )
-    {   "jetbrains-phpstorm",       "jetbrains-phpstorm",    NULL,       1<<7,       0,      1},
-    {   "Postman",                  "postman",                NULL,       1<<7,       0,     1},
-    {   "code",                     "code",                   NULL,       1 <<7,       0,    1},
-
-    // Tag - 9 ( Things on WWW )
-	{ "firefox",        "Navigator",       NULL,       1 << 8,       0,           0},
-	{ "Google-chrome",  "google-chrome",   NULL,       1 << 8,       0,           0},
-
+	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -62,22 +44,8 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
-/* Mask        | Value | Key */
-/* ------------+-------+------------ */
-/* ShiftMask   |     1 | Shift */
-/* ControlMask |     4 | Ctrl */
-/* Mod4Mask    |    64 | Windows */
-/* Mod1Mask    |     8 | Alt */
-/* LockMask    |     2 | Caps Lock */
-/* Mod2Mask    |    16 | Num Lock */
-/* Mod3Mask    |    32 | Scroll Lock */
-/* Mod5Mask    |   128 | ??? */
-
 /* key definitions */
-// #define MODKEY Mod1Mask // Alt key for meta (Default as per DWM)
-#define AltMask Mod1Mask  // Alt key for meta
-#define MODKEY Mod4Mask // Window key for meta
-
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -85,7 +53,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ TERMINAL_PATH, "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -127,20 +95,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-
-    /* Vallabh @START */
-
-    // Patche(s) custom key(s)
-//    { MODKEY,                       XK_f,      togglefullscr,  {0} }, // Fullscreen window
-//    { MODKEY,                       XK_s,      togglesticky,   {0} }, // Stiky window
-
-	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
-    /* close all session of current $USER , use startx */
-    { MODKEY|ShiftMask|ControlMask, XK_q,      spawn,          SHCMD(TERMINAL " pkill -u $USER -9")},
-    { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-
-
-    /* Vallabh @END */
 };
 
 /* button definitions */
