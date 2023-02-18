@@ -44,9 +44,9 @@ apply_patche(){
   done
 }
 apply_git_clean(){
+echo "$RED Git clean apply to [$(pwd)]  $NC"
 #  ${SUDO} git reset --hard HEAD
 #  ${SUDO} git clean -fd
-  apply_permission
 #  git checkout master
 }
 # I would make sure , I am in to current directory
@@ -72,6 +72,7 @@ apply_permission
 # DWM Specific
 cd $DWM_DIR
 apply_git_clean
+apply_permission
 #cp -R $SCRIPT_DIR/dwm/* $DWM_DIR
 apply_patche
 ${SUDO} make clean
@@ -82,7 +83,9 @@ ${SUDO} make install
 # DWMBlock Specific
 cd $DWMBLOCKS_DIR
 apply_git_clean
+apply_permission
 #cp -R $SCRIPT_DIR/dwmblocks/* $DWMBLOCKS_DIR
+apply_patche
 ${SUDO} make clean
 ${SUDO} make
 ${SUDO} make uninstall
