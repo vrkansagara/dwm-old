@@ -94,7 +94,7 @@ ${SUDO} make install
 ps -ef | grep "dwmblocks" | grep -v grep | awk "{print \$2}" | xargs --no-run-if-empty sudo kill -9
 # reset statusbar
 xsetroot -name ""
-/usr/local/bin/dwmblocks&
+/usr/local/bin/dwmblocks 2>&1 >> $HOME/tmp/dwmblocks.log &
 
 ## SLOCK Specific
 #cd $SLOCK_DIR

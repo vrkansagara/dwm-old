@@ -3,6 +3,7 @@
 #include<string.h>
 #include<unistd.h>
 #include<signal.h>
+#include <errno.h>
 #include<sys/wait.h>
 #ifndef NO_X
 #include<X11/Xlib.h>
@@ -18,6 +19,7 @@
 #define CMDLENGTH		50
 #define MIN( a, b ) ( ( a < b) ? a : b )
 #define STATUSLENGTH (LENGTH(blocks) * CMDLENGTH + 1)
+#include<time.h>
 
 typedef struct {
 	char* icon;
@@ -63,7 +65,11 @@ void getcmd(const Block *block, char *output)
 		*output++ = block->signal;
 	strcpy(output, block->icon);
 	FILE *cmdf = popen(block->command, "r");
+//    printf("\n==============\n");
+//    printf("Run command....: %s", block->command);
+//    printf("\n==============\n");
 	if (!cmdf)
+	    // printf("failed to run: %s, %d\n", block->command, errno);\n\n
 		return;
 	int i = strlen(block->icon);
 	fgets(output+i, CMDLENGTH-i-delimLen, cmdf);
@@ -224,6 +230,9 @@ void chldhandler()
 
 int main(int argc, char** argv)
 {
+    time_t t;   // not a primitive datatype
+    time(&t);
+    printf("\nDWMBLOCKS bootstrap at  (date and time): %s", ctime(&t));
 	for (int i = 0; i < argc; i++) {//Handle command line arguments
 		if (!strcmp("-d",argv[i]))
 			strncpy(delim, argv[++i], delimLen);
@@ -243,5 +252,5 @@ int main(int argc, char** argv)
 #ifndef NO_X
 	XCloseDisplay(dpy);
 #endif
-	return 0;
+	return returnStatus;
 }

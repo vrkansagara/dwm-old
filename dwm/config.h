@@ -1,3 +1,7 @@
+#include <X11/X.h>
+#include <X11/XF86keysym.h> // /usr/include/X11/keysymdef.h
+#include <X11/Xresource.h> // /usr/include/X11/Xresource.h
+
 /* Constants */
 // grep $USER /etc/passwd /** Is current user has default shell */
 // chsh -s $(which zsh) /** Change default shell if not */
@@ -6,6 +10,16 @@
 #define TERMINAL "st"
 #define TERMINAL_PATH "/bin/zsh"
 #define EDITOR "vim"
+
+// Brightness controll using (xdotool also useful)
+static const char *brightup[]       = { "/home/vallabh/.vim/bin/brightness", "up", "10000", NULL };
+static const char *brightdown[]     = { "/home/vallabh/.vim/bin/brightness", "down", "10000", NULL };
+
+// Volume specific settings (xdotool also useful)
+static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+1%",     NULL };
+static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-1%",     NULL };
+static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",  NULL };
+
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -87,10 +101,12 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ TERMINAL_PATH, "-c", cmd, NULL } }
 
+#define STATUSBAR "dwmblocks"
+
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { TERMINAL, NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -134,6 +150,23 @@ static const Key keys[] = {
     { MODKEY,                       XK_f,      togglefullscr,  {0} }, // Fullscreen window
     { MODKEY,                       XK_s,      togglesticky,   {0} }, // Stiky window
 
+    { MODKEY|AltMask,              XK_s,       spawn,          SHCMD("screenkey &") },
+    { MODKEY|AltMask|ShiftMask,    XK_s,       spawn,          SHCMD("pkill -9 screenkey") },
+    { MODKEY,                       XK_x,       spawn,          SHCMD("xkill") },
+
+    { 0,        XF86XK_MonBrightnessUp,         spawn,          {.v = brightup } },
+    { 0,        XF86XK_MonBrightnessDown,       spawn,          {.v = brightdown } },
+    { 0,        XF86XK_AudioLowerVolume,        spawn,          {.v = downvol } },
+    { 0,        XF86XK_AudioMute,               spawn,          {.v = mutevol } },
+    { 0,        XF86XK_AudioRaiseVolume,        spawn,          {.v = upvol   } },
+    { 0,        XF86XK_Calculator,              spawn,          SHCMD(TERMINAL " -c calculator -n calculator -e bc -l") },
+
+    /* start editor*/
+    { MODKEY|ControlMask,           XK_Return, spawn,          SHCMD(TERMINAL " -c vrkansagara-ide -n vrkansagara-ide -e vim $HOME") },
+    { MODKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -c htop -n htop -e htop -u $USER -d 60") },
+    { MODKEY,                       XK_e,      spawn,          SHCMD(TERMINAL " -c ranger -n ranger -e ranger") },
+    { MODKEY|ShiftMask,             XK_w,       spawn,         SHCMD(TERMINAL " -c nmtui -n nmtui -e sudo nmtui") },
+
 	/* To quit dwm cleanly (It will hot reload all dwm config, see xinitrc for this) */
     /* close all session of current $USER , use startx */
     { MODKEY|ShiftMask|ControlMask, XK_q,      spawn,          SHCMD(TERMINAL " pkill -u $USER -9")},
@@ -150,7 +183,12 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+
+{ ClkStatusText,        MODKEY,         Button2,        spawn,          {.v = termcmd } },
+{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
+{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
+{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
+
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
