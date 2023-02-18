@@ -11,6 +11,7 @@ static const Block blocks[] = {
 
     {"up","~/.vim/bin/brightness up 10000",                             0,      0},
     {"down","~/.vim/bin/brightness down 10000",                         0,      0},
+    {"vtest:","~/.vim/bin/vtest",                                       0,      0},
 //    {"","memory-vk",10,14},
 };
 
