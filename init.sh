@@ -10,7 +10,7 @@ CURRENT_DATE=$(date "+%Y%m%d%H%M%S")
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 DWM_DIR="$SCRIPT_DIR/dwm"
-DWMBLOCKS_DIR="$SCRIPT_DIR/vendor/dwmblocks"
+DWMBLOCKS_DIR="$SCRIPT_DIR/dwmblocks"
 ST_DIR="$SCRIPT_DIR/vendor/st"
 SLOCK_DIR="$SCRIPT_DIR/vendor/slock"
 SCROLL_DIR="$SCRIPT_DIR/vendor/scroll"
@@ -82,7 +82,7 @@ ${SUDO} make install
 # DWMBlock Specific
 cd $DWMBLOCKS_DIR
 apply_git_clean
-cp -R $SCRIPT_DIR/dwmblocks/* $DWMBLOCKS_DIR
+#cp -R $SCRIPT_DIR/dwmblocks/* $DWMBLOCKS_DIR
 ${SUDO} make clean
 ${SUDO} make
 ${SUDO} make uninstall
